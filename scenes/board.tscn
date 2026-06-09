@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bs2ggo21bonk2"]
+
+[ext_resource type="Script" uid="uid://br82xpkopvppr" path="res://src/board.gd" id="1_tx6nw"]
+[ext_resource type="PackedScene" uid="uid://dlsp8b6t0fqev" path="res://scenes/tile.tscn" id="2_nglv8"]
+
+[node name="Board" type="Node2D" unique_id=1823476214]
+script = ExtResource("1_tx6nw")
+tile_scene = ExtResource("2_nglv8")
