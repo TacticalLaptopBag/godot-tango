@@ -21,10 +21,10 @@ enum Direction {
 @onready var invalid_sprite: Sprite2D = $Invalid
 @onready var click_detector: Area2D = $ClickDetector
 
-@export var north: Tile = null
-@export var east: Tile = null
-@export var south: Tile = null
-@export var west: Tile = null
+var north: Tile = null
+var east: Tile = null
+var south: Tile = null
+var west: Tile = null
 
 var current_type := TileType.Empty
 var locked := false
