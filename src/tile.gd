@@ -8,17 +8,48 @@ enum TileType {
 	Moon,
 }
 
+enum Direction {
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST,
+}
+
 
 @onready var sun: Sprite2D = $Sun
 @onready var moon: Sprite2D = $Moon
+@onready var invalid_sprite: Sprite2D = $Invalid
+@onready var click_detector: Area2D = $ClickDetector
 
-var north: Tile = null
-var east: Tile = null
-var south: Tile = null
-var west: Tile = null
+@export var north: Tile = null
+@export var east: Tile = null
+@export var south: Tile = null
+@export var west: Tile = null
 
 var current_type := TileType.Empty
 var locked := false
+var invalid := false:
+	set(value):
+		invalid = value
+		self_modulate = Color.RED if invalid else Color.WHITE
+		invalid_sprite.visible = invalid
+		
+var grid_position := Vector2(-1, -1)
+
+signal changed(tile: Tile)
+
+
+func get_neighbor(direction: Direction) -> Tile:
+	match direction:
+		Direction.NORTH:
+			return north
+		Direction.EAST:
+			return east
+		Direction.SOUTH:
+			return south
+		Direction.WEST:
+			return west
+	return null
 
 
 func _on_click_detector_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
@@ -63,3 +94,22 @@ func set_tile_type(tile_type: TileType):
 	current_type = tile_type
 	sun.visible = current_type == TileType.Sun
 	moon.visible = current_type == TileType.Moon
+	changed.emit(self)
+	
+
+func has_three_in_a_row() -> Array[Tile]:
+	if current_type == TileType.Empty:
+		return []
+	
+	var problem_tiles: Array[Tile] = []
+	# Check vertical
+	if north != null and south != null:
+		if north.current_type == south.current_type && north.current_type == current_type:
+			problem_tiles.append_array([north, self, south])
+	
+	# Check horizontal
+	if east != null and west != null:
+		if east.current_type == west.current_type && east.current_type == current_type:
+			problem_tiles.append_array([east, self, west])
+	
+	return problem_tiles
