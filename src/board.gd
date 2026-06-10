@@ -21,6 +21,8 @@ func _ready():
 func get_tile(grid_position: Vector2i) -> Sprite2D:
 	if grid_position.x < 0 or grid_position.y < 0:
 		return null
+	if grid_position.x >= size or grid_position.y >= size:
+		return null
 	
 	var row_start := size * grid_position.y
 	var tile_idx = row_start + grid_position.x
@@ -78,7 +80,7 @@ func _find_invalid_lines(line_type: LineType) -> Array[Tile]:
 	return problem_tiles
 
 
-func _invalid_check():
+func _get_problem_tiles() -> Array[Tile]:
 	var problem_tiles: Array[Tile] = []
 	for tile in tiles:
 		tile.invalid = false
@@ -86,11 +88,26 @@ func _invalid_check():
 	
 	problem_tiles.append_array(_find_invalid_lines(LineType.COLUMN))
 	problem_tiles.append_array(_find_invalid_lines(LineType.ROW))
-	
+	return problem_tiles
+
+
+func _is_filled() -> bool:
+	for tile in tiles:
+		if tile.current_type == Tile.TileType.Empty:
+			return false
+	return true
+
+
+func _update_state():
+	var problem_tiles := _get_problem_tiles()
 	for problem_tile in problem_tiles:
 		problem_tile.invalid = true
+	
+	if problem_tiles.is_empty():
+		if _is_filled():
+			print("win!")
 
 
 func _on_tile_changed(tile: Tile):
 	print("Tile changed: "+str(tile.grid_position)+": "+str(tile.current_type))
-	_invalid_check()
+	_update_state()
