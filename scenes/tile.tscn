@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dkuqrw0fppnps" path="res://src/tile.gd" id="2_6p3j2"]
 [ext_resource type="Texture2D" uid="uid://crldeosjpbrp7" path="res://img/light_mode_24dp_FFFFFF.svg" id="2_q7utx"]
 [ext_resource type="Texture2D" uid="uid://cxx3vg04xlyvj" path="res://img/nightlight_round_24dp_FFFFFF.svg" id="3_6p3j2"]
+[ext_resource type="Texture2D" uid="uid://h3yprt8hrbc" path="res://img/close_36dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" id="5_6p3j2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpg2"]
 size = Vector2(24, 24)
@@ -24,6 +25,11 @@ position = Vector2(1, 1)
 rotation = 0.7853982
 texture = ExtResource("3_6p3j2")
 flip_h = true
+
+[node name="Invalid" type="Sprite2D" parent="." unique_id=377537915]
+visible = false
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("5_6p3j2")
 
 [node name="ClickDetector" type="Area2D" parent="." unique_id=1523545792]
 z_index = 1
