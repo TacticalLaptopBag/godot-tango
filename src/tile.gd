@@ -11,6 +11,11 @@ extends Sprite2D
 @onready var invalid_sprite: Sprite2D = $Invalid
 @onready var click_detector: Area2D = $ClickDetector
 
+@onready var north_constraint_label: Label = $NorthConstraint
+@onready var south_constraint_label: Label = $SouthConstraint
+@onready var east_constraint_label: Label = $EastConstraint
+@onready var west_constraint_label: Label = $WestConstraint
+
 
 var cell: Cell = null:
     set(value):
@@ -18,10 +23,12 @@ var cell: Cell = null:
             cell.type_changed.disconnect(_on_cell_type_changed)
             cell.invalid_changed.disconnect(_on_cell_invalid_changed)
             cell.locked_changed.disconnect(_on_cell_locked_changed)
+            cell.constraint_changed.disconnect(_on_cell_constraint_changed)
         cell = value
         cell.type_changed.connect(_on_cell_type_changed)
         cell.invalid_changed.connect(_on_cell_invalid_changed)
         cell.locked_changed.connect(_on_cell_locked_changed)
+        cell.constraint_changed.connect(_on_cell_constraint_changed)
         _update_appearance()
 
 
@@ -29,6 +36,8 @@ func _update_appearance():
     _on_cell_type_changed(cell)
     _on_cell_invalid_changed(cell)
     _on_cell_locked_changed(cell)
+    for direction in Cell.Direction.values():
+        _on_cell_constraint_changed(cell, direction)
 
 
 func _on_click_detector_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -84,19 +93,42 @@ func _update_color():
 
 
 func _on_cell_type_changed(_cell: Cell):
-    print("Cell at "+str(cell.position)+" changed type to "+str(cell.type))
+    # print("Cell at "+str(cell.position)+" changed type to "+str(cell.type))
     sun.visible = cell.type == Cell.Type.SUN
     moon.visible = cell.type == Cell.Type.MOON
 
 
 func _on_cell_invalid_changed(_cell: Cell):
-    print("Cell at "+str(cell.position)+" changed invalid to "+str(cell.invalid))
+    # print("Cell at "+str(cell.position)+" changed invalid to "+str(cell.invalid))
     invalid_sprite.visible = cell.invalid
     _update_color()
 
 
 func _on_cell_locked_changed(_cell: Cell):
-    print("Cell at "+str(cell.position)+" changed locked to "+str(cell.locked))
+    # print("Cell at "+str(cell.position)+" changed locked to "+str(cell.locked))
     click_detector.monitorable = not cell.locked
     click_detector.monitoring = not cell.locked
     _update_color()
+
+
+func _update_constraint_label(label: Label, constraint: Cell.Constraint):
+    match constraint:
+        Cell.Constraint.NONE:
+            label.text = ""
+        Cell.Constraint.EQUAL:
+            label.text = "="
+        Cell.Constraint.OPPOSITE:
+            label.text = "X"
+
+
+func _on_cell_constraint_changed(_cell: Cell, direction: Cell.Direction):
+    var constraint := cell.get_constraint(direction)
+    match direction:
+        Cell.Direction.NORTH:
+            _update_constraint_label(north_constraint_label, constraint)
+        Cell.Direction.SOUTH:
+            _update_constraint_label(south_constraint_label, constraint)
+        Cell.Direction.EAST:
+            _update_constraint_label(east_constraint_label, constraint)
+        Cell.Direction.WEST:
+            _update_constraint_label(west_constraint_label, constraint)

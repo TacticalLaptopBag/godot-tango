@@ -32,8 +32,6 @@ func _populate(size: int):
         cell.south = get_cell(cell.position + Vector2(0, 1))
         cell.west = get_cell(cell.position - Vector2(1, 0))
         cell.east = get_cell(cell.position + Vector2(1, 0))
-    
-
 
 
 func grid_size() -> int:
@@ -71,6 +69,13 @@ func _find_invalid_lines(line_type: LineType) -> Array[Cell]:
     return problem_cells
 
 
+func _find_illegal_constraints() -> Array[Cell]:
+    var problem_cells: Array[Cell] = []
+    for cell in cells:
+        problem_cells.append_array(cell.has_illegal_neighbors())
+    return problem_cells
+
+
 func get_problem_cells() -> Array[Cell]:
     var problem_cells: Array[Cell] = []
     for cell in cells:
@@ -79,6 +84,8 @@ func get_problem_cells() -> Array[Cell]:
 
     problem_cells.append_array(_find_invalid_lines(LineType.COLUMN))
     problem_cells.append_array(_find_invalid_lines(LineType.ROW))
+
+    problem_cells.append_array(_find_illegal_constraints())
     return problem_cells
 
 

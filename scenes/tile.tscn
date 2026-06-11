@@ -9,6 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpg2"]
 size = Vector2(48, 48)
 
+[sub_resource type="LabelSettings" id="LabelSettings_6p3j2"]
+font_color = Color(0, 0, 0, 1)
+
 [node name="Tile" type="Sprite2D" unique_id=1042738421]
 texture = ExtResource("1_jy7pm")
 script = ExtResource("2_6p3j2")
@@ -36,5 +39,62 @@ z_index = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickDetector" unique_id=907866706]
 shape = SubResource("RectangleShape2D_gtpg2")
+
+[node name="NorthConstraint" type="Label" parent="." unique_id=766942174]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.0
+offset_top = -40.0
+offset_right = -28.0
+offset_bottom = -16.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_6p3j2")
+horizontal_alignment = 1
+
+[node name="EastConstraint" type="Label" parent="." unique_id=608005149]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -52.0
+offset_right = -40.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+label_settings = SubResource("LabelSettings_6p3j2")
+horizontal_alignment = 1
+
+[node name="SouthConstraint" type="Label" parent="." unique_id=930502030]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -64.0
+offset_right = -28.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_6p3j2")
+horizontal_alignment = 1
+
+[node name="WestConstraint" type="Label" parent="." unique_id=662345083]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -52.0
+offset_right = -16.0
+offset_bottom = -28.0
+grow_vertical = 2
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_6p3j2")
+horizontal_alignment = 1
 
 [connection signal="input_event" from="ClickDetector" to="." method="_on_click_detector_input_event"]
