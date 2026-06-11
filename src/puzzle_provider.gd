@@ -26,9 +26,14 @@ func generate_puzzle(size: int) -> Puzzle:
         if cell.type == Cell.Type.EMPTY:
             continue
         for direction in Cell.Direction.values():
+            if cell.get_constraint(direction) != Cell.Constraint.NONE:
+                # Direction already constrained previously, check others
+                continue
             if randf() > CONSTRAINT_CHANCE:
                 continue
             cell.constrain_direction(direction)
-            print("constrain")
+            var neighbor := cell.get_neighbor(direction)
+            if neighbor != null:
+                neighbor.constrain_direction(Cell.invert_direction(direction))
 
     return puzzle

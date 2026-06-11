@@ -76,6 +76,19 @@ enum Direction {
 }
 
 
+static func invert_direction(direction: Direction) -> Direction:
+    match direction:
+        Direction.NORTH:
+            return Direction.SOUTH
+        Direction.EAST:
+            return Direction.WEST
+        Direction.SOUTH:
+            return Direction.NORTH
+        Direction.WEST:
+            return Direction.EAST
+    return direction
+
+
 func invert():
     if type == Type.EMPTY:
         return null
