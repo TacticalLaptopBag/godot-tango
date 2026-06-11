@@ -3,7 +3,7 @@ extends Node
 
 const TYPES := [Cell.Type.SUN, Cell.Type.MOON]
 const ATTEMPT_TIMEOUT_MS := 1000
-const CONSTRAINT_CHANCE := 0.1
+const CONSTRAINT_CHANCE := 0.05
 
 
 func generate_puzzle(size: int) -> Puzzle:
@@ -35,5 +35,23 @@ func generate_puzzle(size: int) -> Puzzle:
             var neighbor := cell.get_neighbor(direction)
             if neighbor != null:
                 neighbor.constrain_direction(Cell.invert_direction(direction))
+
+    # Removing one cell will always remain solvable
+    puzzle.cells.pick_random().type = Cell.Type.EMPTY
+
+    start_ticks = Time.get_ticks_msec()
+    var remove_attempt := 0
+    while remove_attempt < size:
+        var filled_cells := puzzle.get_filled_cells()
+        var cell: Cell = filled_cells.pick_random()
+        var filled_type := cell.type
+        cell.type = Cell.Type.EMPTY
+        if PuzzleSolver.solve(puzzle):
+            remove_attempt = 0
+        else:
+            cell.type = filled_type
+            remove_attempt += 1
+    end_ticks = Time.get_ticks_msec()
+    print("Removal took "+str(end_ticks - start_ticks)+"ms")
 
     return puzzle

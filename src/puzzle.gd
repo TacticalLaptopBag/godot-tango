@@ -94,3 +94,12 @@ func validate() -> bool:
     for problem_cell in problem_cells:
         problem_cell.invalid = true
     return problem_cells.is_empty()
+
+
+func get_filled_cells() -> Array[Cell]:
+    var filled_cells: Array[Cell] = []
+    for cell in cells:
+        if cell.type == Cell.Type.EMPTY:
+            continue
+        filled_cells.append(cell)
+    return filled_cells
