@@ -9,13 +9,13 @@ extends Node
 @onready var puzzle := Puzzle.new(size):
     set(value):
         puzzle = value
-        create_board()
+        update_board()
 
 var tiles: Array[Tile] = []
 
 
 func _ready():
-    create_board()
+    puzzle = PuzzleProvider.generate_puzzle(size)
 
 
 func get_tile(grid_position: Vector2i) -> Sprite2D:
@@ -31,6 +31,21 @@ func create_tile(cell: Cell) -> Tile:
     tile.cell = cell
     tile.cell.type_changed.connect(_on_cell_type_changed)
     return tile
+
+
+func update_board():
+    if tiles.size() != puzzle.cells.size():
+        clear_board()
+        create_board()
+    else:
+        for tile in tiles:
+            tile.cell = puzzle.get_cell(tile.cell.position)
+
+
+func clear_board():
+    for tile in tiles:
+        tile.queue_free()
+    tiles = []
 
 
 func create_board():

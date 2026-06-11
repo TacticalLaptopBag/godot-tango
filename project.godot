@@ -15,6 +15,10 @@ run/main_scene="uid://pc17b160dokd"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PuzzleProvider="*uid://do02lgavtgwfu"
+
 [display]
 
 window/size/viewport_width=1280

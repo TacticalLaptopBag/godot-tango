@@ -20,16 +20,10 @@ func get_cell(grid_position: Vector2i) -> Cell:
     return Util.get_item_from_2d(grid_position, cells, _size, _size)
 
 
-func _create_cell(grid_position: Vector2) -> Cell:
-    var cell := Cell.new(grid_position)
-    cell.type_changed.connect(_on_cell_type_changed)
-    return cell
-
-
 func _populate(size: int):
     for y in range(size):
         for x in range(size):
-            var cell := _create_cell(Vector2(x, y))
+            var cell := Cell.new(Vector2(x, y))
             cells.append(cell)
     _size = floor(sqrt(cells.size()))
     
@@ -77,7 +71,7 @@ func _find_invalid_lines(line_type: LineType) -> Array[Cell]:
     return problem_cells
 
 
-func _get_problem_cells() -> Array[Cell]:
+func get_problem_cells() -> Array[Cell]:
     var problem_cells: Array[Cell] = []
     for cell in cells:
         cell.invalid = false
@@ -89,11 +83,7 @@ func _get_problem_cells() -> Array[Cell]:
 
 
 func validate() -> bool:
-    var problem_cells := _get_problem_cells()
+    var problem_cells := get_problem_cells()
     for problem_cell in problem_cells:
         problem_cell.invalid = true
     return problem_cells.is_empty()
-
-
-func _on_cell_type_changed(cell: Cell):
-    print("Cell at "+str(cell.position)+" changed to "+str(cell.type))

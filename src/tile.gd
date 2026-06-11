@@ -22,6 +22,13 @@ var cell: Cell = null:
         cell.type_changed.connect(_on_cell_type_changed)
         cell.invalid_changed.connect(_on_cell_invalid_changed)
         cell.locked_changed.connect(_on_cell_locked_changed)
+        _update_appearance()
+
+
+func _update_appearance():
+    _on_cell_type_changed(cell)
+    _on_cell_invalid_changed(cell)
+    _on_cell_locked_changed(cell)
 
 
 func _on_click_detector_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

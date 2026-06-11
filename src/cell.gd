@@ -49,6 +49,12 @@ enum Direction {
 }
 
 
+func invert():
+    if type == Type.EMPTY:
+        return null
+    type = Type.SUN if type == Type.MOON else Type.MOON
+
+
 func get_neighbor(direction: Direction) -> Cell:
     match direction:
         Direction.NORTH:
