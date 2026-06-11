@@ -5,24 +5,20 @@
 [ext_resource type="Texture2D" uid="uid://crldeosjpbrp7" path="res://img/light_mode_24dp_FFFFFF.svg" id="2_q7utx"]
 [ext_resource type="Texture2D" uid="uid://cxx3vg04xlyvj" path="res://img/nightlight_round_24dp_FFFFFF.svg" id="3_6p3j2"]
 [ext_resource type="Texture2D" uid="uid://h3yprt8hrbc" path="res://img/close_36dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" id="5_6p3j2"]
+[ext_resource type="Texture2D" uid="uid://02445htu7hxl" path="res://img/equal_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="6_gtpg2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpg2"]
 size = Vector2(48, 48)
-
-[sub_resource type="LabelSettings" id="LabelSettings_6p3j2"]
-font_color = Color(0, 0, 0, 1)
 
 [node name="Tile" type="Sprite2D" unique_id=1042738421]
 texture = ExtResource("1_jy7pm")
 script = ExtResource("2_6p3j2")
 
 [node name="Sun" type="Sprite2D" parent="." unique_id=1535633344]
-visible = false
 modulate = Color(0.86692446, 0.6791556, 0.31972727, 1)
 texture = ExtResource("2_q7utx")
 
 [node name="Moon" type="Sprite2D" parent="." unique_id=1536696781]
-visible = false
 modulate = Color(0.47560003, 0.6420599, 0.82, 1)
 position = Vector2(1, 1)
 rotation = 0.7853982
@@ -30,7 +26,6 @@ texture = ExtResource("3_6p3j2")
 flip_h = true
 
 [node name="Invalid" type="Sprite2D" parent="." unique_id=377537915]
-visible = false
 modulate = Color(1, 0, 0, 1)
 texture = ExtResource("5_6p3j2")
 
@@ -45,11 +40,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -52.0
-offset_top = -40.0
+offset_top = -48.0
 offset_right = -28.0
-offset_bottom = -16.0
+offset_bottom = -24.0
 grow_horizontal = 2
-label_settings = SubResource("LabelSettings_6p3j2")
 horizontal_alignment = 1
 
 [node name="EastConstraint" type="Label" parent="." unique_id=608005149]
@@ -58,43 +52,33 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -64.0
+offset_left = -56.0
 offset_top = -52.0
-offset_right = -40.0
+offset_right = -32.0
 offset_bottom = -28.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
-label_settings = SubResource("LabelSettings_6p3j2")
 horizontal_alignment = 1
 
-[node name="SouthConstraint" type="Label" parent="." unique_id=930502030]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -64.0
-offset_right = -28.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 8
-label_settings = SubResource("LabelSettings_6p3j2")
-horizontal_alignment = 1
+[node name="NorthConstraintEquals" type="Sprite2D" parent="." unique_id=1679478219]
+position = Vector2(0, -36)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_gtpg2")
 
-[node name="WestConstraint" type="Label" parent="." unique_id=662345083]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -52.0
-offset_right = -16.0
-offset_bottom = -28.0
-grow_vertical = 2
-size_flags_vertical = 8
-label_settings = SubResource("LabelSettings_6p3j2")
-horizontal_alignment = 1
+[node name="NorthConstraintOpposite" type="Sprite2D" parent="." unique_id=1761893216]
+position = Vector2(0, -36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_6p3j2")
+
+[node name="EastConstraintEquals" type="Sprite2D" parent="." unique_id=1979375054]
+position = Vector2(36, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_gtpg2")
+
+[node name="EastConstraintOpposite" type="Sprite2D" parent="." unique_id=956348599]
+position = Vector2(36, 0)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_6p3j2")
 
 [connection signal="input_event" from="ClickDetector" to="." method="_on_click_detector_input_event"]
