@@ -1,7 +1,15 @@
 [gd_scene format=3 uid="uid://pc17b160dokd"]
 
+[ext_resource type="Script" uid="uid://bo0qr84d4byu0" path="res://addons/controller_icons/objects/ControllerIconTexture.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
+
+[sub_resource type="Texture2D" id="Texture2D_lbhrr"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("1_lnu2h")
+path = "new_game"
+metadata/_custom_type_script = "uid://bo0qr84d4byu0"
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
@@ -18,6 +26,7 @@ offset_right = 360.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Button" type="Button" parent="Camera2D/Control" unique_id=1048041080]
 layout_mode = 1
@@ -33,6 +42,7 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "New Game"
+icon = SubResource("Texture2D_lbhrr")
 script = ExtResource("1_yqjtg")
 
 [node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]

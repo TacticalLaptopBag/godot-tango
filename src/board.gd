@@ -7,6 +7,9 @@ extends Node
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene
 
+@export var invalid_haptics := HapticConfig.new()
+
+
 @onready var puzzle := Puzzle.new(size):
 	set(value):
 		puzzle = value
@@ -17,11 +20,10 @@ var tiles: Array[Tile] = []
 
 func _ready():
 	puzzle = PuzzleProvider.generate_puzzle(size)
-	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 
-func get_tile(grid_position: Vector2i) -> Sprite2D:
+func get_tile(grid_position: Vector2i) -> Tile:
 	return Util.get_item_from_2d(grid_position, tiles, puzzle.grid_size(), puzzle.grid_size())
 
 
@@ -62,11 +64,16 @@ func _update_state():
 	var is_valid := puzzle.validate()
 	if is_valid and puzzle.is_filled():
 		print("win!")
+		for cell in puzzle.cells:
+			cell.locked = true
+	elif not is_valid:
+		invalid_haptics.vibrate()
 
 
 func _on_cell_type_changed(cell: Cell):
 	print("Cell changed: "+str(cell.position)+": "+str(cell.type))
 	_update_state()
+
 
 func _on_viewport_size_changed():
 	for tile in tiles:

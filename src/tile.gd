@@ -5,6 +5,8 @@ extends Sprite2D
 @export var invalid_color := Color.RED
 @export var locked_color := Color.GRAY
 @export var invalid_locked_color := Color.DARK_RED
+@export var tap_haptics := HapticConfig.new()
+@export var long_press_haptics := HapticConfig.new()
 
 @onready var sun: Sprite2D = $Sun
 @onready var moon: Sprite2D = $Moon
@@ -14,6 +16,14 @@ extends Sprite2D
 @onready var north_constraint_opposite: Sprite2D = $NorthConstraintOpposite
 @onready var east_constraint_equals: Sprite2D = $EastConstraintEquals
 @onready var east_constraint_opposite: Sprite2D = $EastConstraintOpposite
+@onready var long_press_timer: Timer = $LongPressTimer
+@onready var selection_indicator: Sprite2D = $SelectionIndicator
+
+var selected := false:
+	set(value):
+		selected = value
+		_update_selected_appearance()
+var _click_start_time := 0
 
 
 var cell: Cell = null:
@@ -36,24 +46,41 @@ func _update_appearance():
 	_on_cell_invalid_changed(cell)
 	_on_cell_locked_changed(cell)
 	_on_cell_constraint_changed(cell, Cell.Direction.NORTH)
+	_update_selected_appearance()
+
+
+func _update_selected_appearance():
+	selection_indicator.visible = selected
 
 
 func _on_click_detector_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if cell.locked:
 		return
 
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
-			toggle_tile_type()
-		elif event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
-			toggle_moon_tile()
-			pass
-		elif event.button_index == MouseButton.MOUSE_BUTTON_MIDDLE:
-			clear_tile()
-			pass
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
+				long_press_timer.start()
+		elif event.is_released():
+			if event.button_index == MouseButton.MOUSE_BUTTON_LEFT and not long_press_timer.is_stopped():
+				long_press_timer.stop()
+				toggle_tile_type()
+				tap_haptics.vibrate()
+			elif event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
+				toggle_moon_tile()
+			elif event.button_index == MouseButton.MOUSE_BUTTON_MIDDLE:
+				clear_tile()
+
+
+func _on_long_press_timer_timeout():
+	toggle_moon_tile()
+	long_press_haptics.vibrate()
 
 
 func toggle_tile_type():
+	if cell.locked:
+		return
+
 	var new_type: Cell.Type
 	match cell.type:
 		Cell.Type.EMPTY:
@@ -66,11 +93,17 @@ func toggle_tile_type():
 
 
 func toggle_moon_tile():
+	if cell.locked:
+		return
+
 	var new_type := Cell.Type.EMPTY if cell.type == Cell.Type.MOON else Cell.Type.MOON
 	cell.type = new_type
 
 
 func clear_tile():
+	if cell.locked:
+		return
+
 	cell.type = Cell.Type.EMPTY
 
 
