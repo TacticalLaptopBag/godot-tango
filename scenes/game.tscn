@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://pc17b160dokd"]
+
+[ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
+
+[node name="Game" type="Node2D" unique_id=1986065374]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=838880534]
+
+[node name="Control" type="Control" parent="Camera2D" unique_id=1583615403]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -360.0
+offset_right = 360.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Camera2D/Control" unique_id=1048041080]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_top = -55.0
+offset_right = 46.5
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "New Game"
+script = ExtResource("1_yqjtg")
+
+[node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
+padding = -8
+grid_padding = Vector2(0, 100)
+
+[connection signal="pressed" from="Camera2D/Control/Button" to="Camera2D/Control/Button" method="_on_pressed"]

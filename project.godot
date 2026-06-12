@@ -21,8 +21,9 @@ PuzzleProvider="*uid://do02lgavtgwfu"
 
 [display]
 
-window/size/viewport_width=1280
+window/size/viewport_width=720
 window/size/viewport_height=720
+window/size/initial_position_type=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
@@ -30,6 +31,10 @@ window/handheld/orientation=1
 [dotnet]
 
 project/assembly_name="Tango"
+
+[global_group]
+
+board=""
 
 [physics]
 
