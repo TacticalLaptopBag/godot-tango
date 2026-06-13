@@ -54,4 +54,7 @@ func generate_puzzle(size: int) -> Puzzle:
     end_ticks = Time.get_ticks_msec()
     print("Removal took "+str(end_ticks - start_ticks)+"ms")
 
+    for filled_cell in puzzle.get_filled_cells():
+        filled_cell.locked = true
+
     return puzzle
