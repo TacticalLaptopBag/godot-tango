@@ -5,20 +5,23 @@ extends Resource
 var type := Type.EMPTY:
 	set(value):
 		if type != value:
+			var old_type := type
 			type = value
-			type_changed.emit(self)
+			type_changed.emit(self, old_type)
 var position := Vector2.ZERO
 
 var locked := false:
 	set(value):
 		if locked != value:
+			var old_locked := locked
 			locked = value
-			locked_changed.emit(self)
+			locked_changed.emit(self, old_locked)
 var invalid := false:
 	set(value):
 		if invalid != value:
+			var old_invalid := invalid
 			invalid = value
-			invalid_changed.emit(self)
+			invalid_changed.emit(self, old_invalid)
 
 var north: Cell = null
 var south: Cell = null
@@ -28,26 +31,30 @@ var west: Cell = null
 
 var north_constraint := Constraint.NONE:
 	set(value):
+		var old_constraint := north_constraint
 		north_constraint = value
-		constraint_changed.emit(self, Direction.NORTH)
+		constraint_changed.emit(self, Direction.NORTH, old_constraint)
 var south_constraint := Constraint.NONE:
 	set(value):
+		var old_constraint := south_constraint
 		south_constraint = value
-		constraint_changed.emit(self, Direction.SOUTH)
+		constraint_changed.emit(self, Direction.SOUTH, old_constraint)
 var east_constraint := Constraint.NONE:
 	set(value):
+		var old_constraint := east_constraint
 		east_constraint = value
-		constraint_changed.emit(self, Direction.EAST)
+		constraint_changed.emit(self, Direction.EAST, old_constraint)
 var west_constraint := Constraint.NONE:
 	set(value):
+		var old_constraint := west_constraint
 		west_constraint = value
-		constraint_changed.emit(self, Direction.WEST)
+		constraint_changed.emit(self, Direction.WEST, old_constraint)
 
 
-signal type_changed(cell: Cell)
-signal invalid_changed(cell: Cell)
-signal locked_changed(cell: Cell)
-signal constraint_changed(cell: Cell, direction: Direction)
+signal type_changed(cell: Cell, old_type: Type)
+signal invalid_changed(cell: Cell, old_invalid: bool)
+signal locked_changed(cell: Cell, old_locked: bool)
+signal constraint_changed(cell: Cell, direction: Direction, old_constraint: Constraint)
 
 
 func _init(grid_position: Vector2):

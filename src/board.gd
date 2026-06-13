@@ -7,13 +7,17 @@ extends Node
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene
 
-
 @onready var puzzle := Puzzle.new(size):
 	set(value):
 		puzzle = value
 		update_board()
 
 var tiles: Array[Tile] = []
+var changes: Array[Change] = []
+var undoing := false
+
+
+signal cell_type_changed(cell: Cell, old_type: Cell.Type)
 
 
 func _ready():
@@ -44,6 +48,7 @@ func update_board():
 	else:
 		for tile in tiles:
 			tile.cell = puzzle.get_cell(tile.cell.position)
+	changes.clear()
 
 
 func clear_board():
@@ -66,11 +71,26 @@ func _update_state():
 			cell.locked = true
 
 
-func _on_cell_type_changed(cell: Cell):
+func _on_cell_type_changed(cell: Cell, old_type: Cell.Type):
 	print("Cell changed: "+str(cell.position)+": "+str(cell.type))
 	_update_state()
+	if not undoing:
+		var change := Change.new(cell, old_type, cell.type)
+		changes.push_back(change)
+	else:
+		undoing = false
+	cell_type_changed.emit(cell, old_type)
 
 
 func _on_viewport_size_changed():
 	for tile in tiles:
 		tile.update_transform(size, padding, grid_padding)
+
+
+func undo():
+	var change: Change = changes.pop_back()
+	if change == null:
+		return
+	
+	undoing = true
+	change.cell.type = change.old_type

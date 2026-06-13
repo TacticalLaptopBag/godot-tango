@@ -22,7 +22,7 @@ extends Sprite2D
 @onready var invalid_timer: Timer = $InvalidTimer
 @onready var selection_indicator: Sprite2D = $SelectionIndicator
 
-signal cell_type_changed(cell: Cell)
+signal cell_type_changed(cell: Cell, old_type: Cell.Type)
 
 
 var selected := false:
@@ -47,9 +47,9 @@ var cell: Cell = null:
 
 
 func _update_appearance():
-	_on_cell_type_changed(cell)
-	_on_cell_locked_changed(cell)
-	_on_cell_constraint_changed(cell, Cell.Direction.NORTH)
+	_update_type_appearance()
+	_on_cell_locked_changed(cell, cell.locked)
+	_on_cell_constraint_changed(cell, Cell.Direction.NORTH, Cell.Constraint.NONE)
 	_update_selected_appearance()
 	_update_invalid_appearance()
 
@@ -128,6 +128,11 @@ func _update_color():
 	self_modulate = Color.WHITE
 
 
+func _update_type_appearance():
+	sun.visible = cell.type == Cell.Type.SUN
+	moon.visible = cell.type == Cell.Type.MOON
+
+
 func _update_invalid_appearance():
 	invalid_sprite.visible = cell.invalid
 	_update_color()
@@ -135,14 +140,13 @@ func _update_invalid_appearance():
 		invalid_haptics.vibrate()
 
 
-func _on_cell_type_changed(_cell: Cell):
+func _on_cell_type_changed(_cell: Cell, old_type: Cell.Type):
 	# print("Cell at "+str(cell.position)+" changed type to "+str(cell.type))
-	sun.visible = cell.type == Cell.Type.SUN
-	moon.visible = cell.type == Cell.Type.MOON
-	cell_type_changed.emit(cell)
+	_update_type_appearance()
+	cell_type_changed.emit(cell, old_type)
 
 
-func _on_cell_invalid_changed(_cell: Cell):
+func _on_cell_invalid_changed(_cell: Cell, _old_invalid: bool):
 	# print("Cell at "+str(cell.position)+" changed invalid to "+str(cell.invalid))
 	if cell.invalid:
 		invalid_timer.start()
@@ -151,7 +155,7 @@ func _on_cell_invalid_changed(_cell: Cell):
 		_update_invalid_appearance()
 
 
-func _on_cell_locked_changed(_cell: Cell):
+func _on_cell_locked_changed(_cell: Cell, _old_locked: bool):
 	# print("Cell at "+str(cell.position)+" changed locked to "+str(cell.locked))
 	click_detector.monitorable = not cell.locked
 	click_detector.monitoring = not cell.locked
@@ -169,7 +173,7 @@ func _update_constraint_label(label: Label, constraint: Cell.Constraint):
 			label.text = "X"
 
 
-func _on_cell_constraint_changed(_cell: Cell, _direction: Cell.Direction):
+func _on_cell_constraint_changed(_cell: Cell, _direction: Cell.Direction, _old_constraint: Cell.Constraint):
 	north_constraint_equals.visible = cell.north_constraint == Cell.Constraint.EQUAL
 	north_constraint_opposite.visible = cell.north_constraint == Cell.Constraint.OPPOSITE
 	east_constraint_equals.visible = cell.east_constraint == Cell.Constraint.EQUAL

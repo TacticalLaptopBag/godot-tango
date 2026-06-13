@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://6h3db65lygke" path="res://src/undo_button.gd" id="2_lnu2h"]
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
@@ -44,7 +45,15 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
+theme_override_constants/separation = 24
 alignment = 1
+
+[node name="Undo" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1460636056]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Undo"
+script = ExtResource("2_lnu2h")
 
 [node name="New Game" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1061882864]
 layout_mode = 2
@@ -52,5 +61,3 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "New Game"
 script = ExtResource("1_yqjtg")
-
-[connection signal="pressed" from="CanvasLayer/UI/MarginContainer/BottomRow/New Game" to="CanvasLayer/UI/MarginContainer/BottomRow/New Game" method="_on_pressed"]
