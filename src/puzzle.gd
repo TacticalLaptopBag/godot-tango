@@ -79,7 +79,6 @@ func _find_illegal_constraints() -> Array[Cell]:
 func get_problem_cells() -> Array[Cell]:
 	var problem_cells: Array[Cell] = []
 	for cell in cells:
-		cell.invalid = false
 		problem_cells.append_array(cell.has_three_in_a_row())
 
 	problem_cells.append_array(_find_invalid_lines(LineType.COLUMN))
@@ -91,8 +90,9 @@ func get_problem_cells() -> Array[Cell]:
 
 func validate() -> bool:
 	var problem_cells := get_problem_cells()
-	for problem_cell in problem_cells:
-		problem_cell.invalid = true
+	for cell in cells:
+		cell.invalid = cell in problem_cells
+
 	return problem_cells.is_empty()
 
 
