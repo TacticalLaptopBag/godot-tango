@@ -2,6 +2,11 @@ class_name Board
 extends Node
 
 
+# TODO: Victory animation/screen
+# TODO: Title screen
+# TODO: Art
+
+
 @export var size := 6
 @export var padding := 12
 @export var grid_padding := Vector2(50, 50)
