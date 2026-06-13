@@ -1,52 +1,56 @@
 [gd_scene format=3 uid="uid://pc17b160dokd"]
 
-[ext_resource type="Script" uid="uid://bo0qr84d4byu0" path="res://addons/controller_icons/objects/ControllerIconTexture.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
-
-[sub_resource type="Texture2D" id="Texture2D_lbhrr"]
-resource_local_to_scene = false
-resource_name = ""
-script = ExtResource("1_lnu2h")
-path = "new_game"
-metadata/_custom_type_script = "uid://bo0qr84d4byu0"
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=838880534]
 
-[node name="Control" type="Control" parent="Camera2D" unique_id=1583615403]
+[node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
+padding = -8
+grid_padding = Vector2(0, 55)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=67938082]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1313506943]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -360.0
-offset_top = -360.0
-offset_right = 360.0
-offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Button" type="Button" parent="Camera2D/Control" unique_id=1048041080]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI" unique_id=2008328514]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -46.5
-offset_top = -55.0
-offset_right = 46.5
-offset_bottom = -24.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer" unique_id=1369882172]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer" unique_id=1096244475]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+alignment = 1
+
+[node name="New Game" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1061882864]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "New Game"
-icon = SubResource("Texture2D_lbhrr")
 script = ExtResource("1_yqjtg")
 
-[node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
-padding = -8
-grid_padding = Vector2(0, 100)
-
-[connection signal="pressed" from="Camera2D/Control/Button" to="Camera2D/Control/Button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/MarginContainer/BottomRow/New Game" to="CanvasLayer/UI/MarginContainer/BottomRow/New Game" method="_on_pressed"]
