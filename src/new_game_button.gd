@@ -1,6 +1,10 @@
 extends Button
 
 
+func _ready() -> void:
+	pressed.connect(_on_pressed)
+
+
 func _unhandled_input(_event: InputEvent):
 	if Input.is_action_just_pressed("new_game"):
 		_on_pressed()
