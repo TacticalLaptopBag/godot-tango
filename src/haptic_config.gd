@@ -16,12 +16,9 @@ extends Resource
 
 func vibrate():
 	if haptic_devices & 1:
-		print("buzz gamepad")
 		Input.start_joy_vibration(0, weak_magnitude, strong_magnitude, duration_ms / 1000.0)
 		
-	# TODO: Need to add the VIBRATE permission to the export preset
 	# https://docs.godotengine.org/en/latest/classes/class_input.html#class-input-method-vibrate-handheld
 	if haptic_devices & 2:
-		print("buzz handheld")
 		Input.vibrate_handheld(duration_ms, amplitude)
 	
