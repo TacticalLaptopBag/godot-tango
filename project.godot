@@ -21,7 +21,7 @@ PuzzleProvider="*uid://do02lgavtgwfu"
 
 [display]
 
-window/size/viewport_width=1280
+window/size/viewport_width=720
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -38,4 +38,5 @@ project/assembly_name="Tango"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
