@@ -7,6 +7,7 @@ extends Sprite2D
 @export var invalid_locked_color := Color.DARK_RED
 @export var tap_haptics := HapticConfig.new()
 @export var long_press_haptics := HapticConfig.new()
+@export var invalid_haptics := HapticConfig.new()
 
 @onready var sun: Sprite2D = $Sun
 @onready var moon: Sprite2D = $Moon
@@ -127,6 +128,8 @@ func _update_color():
 func _update_invalid_appearance():
 	invalid_sprite.visible = cell.invalid
 	_update_color()
+	if cell.invalid:
+		invalid_haptics.vibrate()
 
 
 func _on_cell_type_changed(_cell: Cell):

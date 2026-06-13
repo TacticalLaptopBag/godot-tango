@@ -7,8 +7,6 @@ extends Node
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene
 
-@export var invalid_haptics := HapticConfig.new()
-
 
 @onready var puzzle := Puzzle.new(size):
 	set(value):
@@ -66,8 +64,6 @@ func _update_state():
 		print("win!")
 		for cell in puzzle.cells:
 			cell.locked = true
-	elif not is_valid:
-		invalid_haptics.vibrate()
 
 
 func _on_cell_type_changed(cell: Cell):
