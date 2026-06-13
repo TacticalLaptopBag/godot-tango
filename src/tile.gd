@@ -22,6 +22,9 @@ extends Sprite2D
 @onready var invalid_timer: Timer = $InvalidTimer
 @onready var selection_indicator: Sprite2D = $SelectionIndicator
 
+signal cell_type_changed(cell: Cell)
+
+
 var selected := false:
 	set(value):
 		selected = value
@@ -136,6 +139,7 @@ func _on_cell_type_changed(_cell: Cell):
 	# print("Cell at "+str(cell.position)+" changed type to "+str(cell.type))
 	sun.visible = cell.type == Cell.Type.SUN
 	moon.visible = cell.type == Cell.Type.MOON
+	cell_type_changed.emit(cell)
 
 
 func _on_cell_invalid_changed(_cell: Cell):

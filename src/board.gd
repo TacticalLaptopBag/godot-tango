@@ -32,7 +32,7 @@ func create_tile(cell: Cell) -> Tile:
 	#var position := (cell.position - Vector2(size / 2.0, size / 2.0)) * (tile_size + Vector2(padding, padding))
 	#tile.position = position + tile_size / 2.0
 	tile.cell = cell
-	tile.cell.type_changed.connect(_on_cell_type_changed)
+	tile.cell_type_changed.connect(_on_cell_type_changed)
 	tile.update_transform(size, padding, grid_padding)
 	return tile
 
