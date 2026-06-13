@@ -16,7 +16,7 @@ func generate_puzzle(size: int) -> Puzzle:
         while problem_cells.size() > 0:
             problem_cells.pick_random().invert()
             problem_cells = puzzle.get_problem_cells()
-            if start_ticks >= ATTEMPT_TIMEOUT_MS:
+            if Time.get_ticks_msec() - start_ticks >= ATTEMPT_TIMEOUT_MS:
                 # This is taking too long... try again
                 return generate_puzzle(size)
     var end_ticks := Time.get_ticks_msec()

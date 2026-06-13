@@ -4,8 +4,22 @@
 [ext_resource type="Script" uid="uid://dkuqrw0fppnps" path="res://src/tile.gd" id="2_6p3j2"]
 [ext_resource type="Texture2D" uid="uid://crldeosjpbrp7" path="res://img/light_mode_24dp_FFFFFF.svg" id="2_q7utx"]
 [ext_resource type="Texture2D" uid="uid://cxx3vg04xlyvj" path="res://img/nightlight_round_24dp_FFFFFF.svg" id="3_6p3j2"]
+[ext_resource type="Script" uid="uid://c26mk37sdphu6" path="res://src/haptic_config.gd" id="3_a2bny"]
 [ext_resource type="Texture2D" uid="uid://h3yprt8hrbc" path="res://img/close_36dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" id="5_6p3j2"]
 [ext_resource type="Texture2D" uid="uid://02445htu7hxl" path="res://img/equal_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="6_gtpg2"]
+
+[sub_resource type="Resource" id="Resource_a2bny"]
+script = ExtResource("3_a2bny")
+haptic_devices = 2
+duration_ms = 50
+metadata/_custom_type_script = "uid://c26mk37sdphu6"
+
+[sub_resource type="Resource" id="Resource_284l3"]
+script = ExtResource("3_a2bny")
+haptic_devices = 2
+duration_ms = 50
+amplitude = 0.75
+metadata/_custom_type_script = "uid://c26mk37sdphu6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpg2"]
 size = Vector2(48, 48)
@@ -13,6 +27,8 @@ size = Vector2(48, 48)
 [node name="Tile" type="Sprite2D" unique_id=1042738421]
 texture = ExtResource("1_jy7pm")
 script = ExtResource("2_6p3j2")
+tap_haptics = SubResource("Resource_a2bny")
+long_press_haptics = SubResource("Resource_284l3")
 
 [node name="Sun" type="Sprite2D" parent="." unique_id=1535633344]
 modulate = Color(0.86692446, 0.6791556, 0.31972727, 1)
@@ -81,4 +97,13 @@ position = Vector2(36, 0)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_6p3j2")
 
+[node name="LongPressTimer" type="Timer" parent="." unique_id=421255309]
+wait_time = 0.3
+one_shot = true
+
+[node name="SelectionIndicator" type="Sprite2D" parent="." unique_id=2033087331]
+modulate = Color(0.53400004, 0.7713333, 0.89, 1)
+texture = ExtResource("1_jy7pm")
+
 [connection signal="input_event" from="ClickDetector" to="." method="_on_click_detector_input_event"]
+[connection signal="timeout" from="LongPressTimer" to="." method="_on_long_press_timer_timeout"]
