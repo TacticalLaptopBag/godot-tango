@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Tango"
 run/main_scene="uid://pc17b160dokd"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
@@ -110,5 +111,6 @@ new_game={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

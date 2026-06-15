@@ -4,6 +4,11 @@ extends Button
 @onready var board: Board = get_tree().get_first_node_in_group("board")
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		_on_pressed()
+
+
 func _ready() -> void:
 	board.cell_type_changed.connect(_on_cell_type_changed)
 	pressed.connect(_on_pressed)
