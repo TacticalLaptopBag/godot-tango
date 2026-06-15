@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://biputapsowccm"]
+
+[ext_resource type="Texture2D" uid="uid://blujsm7g0nbkh" path="res://img/play_arrow_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="1_benoo"]
+
+[node name="Play Button" type="Button" unique_id=597162648]
+icon = ExtResource("1_benoo")
+alignment = 0

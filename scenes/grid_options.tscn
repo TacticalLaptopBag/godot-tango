@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c06aql8tn7la"]
+
+[ext_resource type="Texture2D" uid="uid://bmbsbfofsfmnh" path="res://img/grid_3x3_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="1_01x5w"]
+[ext_resource type="Texture2D" uid="uid://dkl3vxps1r3rx" path="res://img/grid_4x4_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="2_bq2k0"]
+[ext_resource type="Texture2D" uid="uid://ct70owif20haa" path="res://img/background_grid_small_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="3_ok2vx"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_flqon"]
+
+[node name="Grid Options" type="HBoxContainer" unique_id=1359782417]
+alignment = 1
+
+[node name="4x4" type="Button" parent="." unique_id=670144035]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_flqon")
+icon = ExtResource("1_01x5w")
+
+[node name="6x6" type="Button" parent="." unique_id=2110209995]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_flqon")
+icon = ExtResource("2_bq2k0")
+
+[node name="8x8" type="Button" parent="." unique_id=1089017781]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_flqon")
+icon = ExtResource("3_ok2vx")

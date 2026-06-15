@@ -2,7 +2,6 @@ class_name Board
 extends Node2D
 
 
-# TODO: Victory animation/screen
 # TODO: Title screen
 # TODO: Art
 

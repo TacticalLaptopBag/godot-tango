@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c3c6xkh2j60ve"]
+
+[ext_resource type="Theme" uid="uid://bopxbva0ifjvt" path="res://theme.tres" id="1_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://biputapsowccm" path="res://scenes/play_button.tscn" id="2_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="3_8ln24"]
+[ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="5_oa1go"]
+[ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="7_oa1go"]
+
+[node name="Main Menu" type="Control" unique_id=1887483758]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rtw2f")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=336666361]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title Screen" type="VBoxContainer" parent="CenterContainer" unique_id=958604767]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Title Screen" unique_id=1156970458]
+layout_mode = 2
+text = "Tango.gd"
+horizontal_alignment = 1
+
+[node name="Action Buttons" type="HBoxContainer" parent="CenterContainer/Title Screen" unique_id=665371414]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Play Button" parent="CenterContainer/Title Screen/Action Buttons" unique_id=597162648 instance=ExtResource("2_rtw2f")]
+layout_mode = 2
+
+[node name="Vibrate Toggle" parent="CenterContainer/Title Screen/Action Buttons" unique_id=1938221906 instance=ExtResource("3_8ln24")]
+layout_mode = 2
+
+[node name="Quit Button" parent="CenterContainer/Title Screen/Action Buttons" unique_id=1881093083 instance=ExtResource("5_oa1go")]
+layout_mode = 2
+
+[node name="Grid Options" parent="CenterContainer/Title Screen" unique_id=1359782417 instance=ExtResource("7_oa1go")]
+layout_mode = 2

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cvo7wxon3in50"]
+
+[ext_resource type="Texture2D" uid="uid://bsrodxjyqyw3m" path="res://img/close_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="1_yfv4f"]
+[ext_resource type="Script" uid="uid://sna8alvlu7ae" path="res://src/exit_button.gd" id="2_je181"]
+
+[node name="Quit Button" type="Button" unique_id=1881093083]
+icon = ExtResource("1_yfv4f")
+alignment = 0
+script = ExtResource("2_je181")

@@ -9,7 +9,10 @@
 [ext_resource type="Script" uid="uid://dyipj57gr314k" path="res://src/board_ui.gd" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
-[ext_resource type="Script" uid="uid://sna8alvlu7ae" path="res://src/exit_button.gd" id="6_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://biputapsowccm" path="res://scenes/play_button.tscn" id="9_dinhu"]
+[ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="10_kvuet"]
+[ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="10_trtic"]
+[ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="11_trtic"]
 
 [sub_resource type="GDScript" id="GDScript_u5sy4"]
 script/source = "extends HBoxContainer
@@ -109,7 +112,10 @@ size_flags_vertical = 4
 icon = ExtResource("2_iywne")
 script = ExtResource("2_lnu2h")
 
-[node name="New Game" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1061882864]
+[node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1938221906 instance=ExtResource("10_trtic")]
+layout_mode = 2
+
+[node name="New Game" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1464061693]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -121,7 +127,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
-visible = false
 layout_mode = 2
 script = SubResource("GDScript_gee14")
 time_label = NodePath("MarginContainer/VBoxContainer/Content")
@@ -138,28 +143,29 @@ layout_mode = 2
 
 [node name="Header" type="Label" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=600898379]
 layout_mode = 2
-text = "you're winner!"
+text = "🏆"
 horizontal_alignment = 1
 
 [node name="Content" type="Label" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1008680778]
 layout_mode = 2
-text = "Time: %s"
+text = "%s"
 horizontal_alignment = 1
 
 [node name="Action Buttons" type="HBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1891311119]
 layout_mode = 2
 alignment = 1
 
-[node name="Exit" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1395640848]
+[node name="Play Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=597162648 instance=ExtResource("9_dinhu")]
 layout_mode = 2
-text = "Quit"
-script = ExtResource("6_u5sy4")
 
-[node name="New Game" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=2090387668 node_paths=PackedStringArray("hide_on_pressed")]
+[node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1971162748 instance=ExtResource("10_trtic")]
 layout_mode = 2
-text = "New Game"
-script = ExtResource("1_yqjtg")
-hide_on_pressed = [NodePath("../../../..")]
+
+[node name="Quit Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1881093083 instance=ExtResource("10_kvuet")]
+layout_mode = 2
+
+[node name="Grid Options" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1359782417 instance=ExtResource("11_trtic")]
+layout_mode = 2
 
 [node name="ConfettiParticles" parent="." unique_id=667145340 instance=ExtResource("6_p57ef")]
 position = Vector2(0, 360)
