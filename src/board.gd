@@ -1,5 +1,5 @@
 class_name Board
-extends Node
+extends Node2D
 
 
 # TODO: Victory animation/screen
@@ -8,12 +8,14 @@ extends Node
 
 
 @export var debug := false
-@export var size := 6
+@export var grid_size := 6
 @export var padding := 12
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene
 
-@onready var puzzle := Puzzle.new(size):
+var bounding_box := Vector2.ZERO
+
+@onready var puzzle := Puzzle.new(grid_size):
 	set(value):
 		puzzle = value
 		update_board()
@@ -33,7 +35,7 @@ signal puzzle_completed(start_ticks: int, end_ticks: int)
 
 
 func _ready():
-	puzzle = PuzzleProvider.generate_puzzle(size, debug)
+	puzzle = PuzzleProvider.generate_puzzle(grid_size, debug)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 
@@ -44,12 +46,9 @@ func get_tile(grid_position: Vector2i) -> Tile:
 func create_tile(cell: Cell) -> Tile:
 	var tile: Tile = tile_scene.instantiate()
 	add_child(tile)
-	#var tile_size := Vector2(tile.texture.get_width() * tile.scale.x, tile.texture.get_height() * tile.scale.y)
-	#var position := (cell.position - Vector2(size / 2.0, size / 2.0)) * (tile_size + Vector2(padding, padding))
-	#tile.position = position + tile_size / 2.0
 	tile.cell = cell
 	tile.cell_type_changed.connect(_on_cell_type_changed)
-	tile.update_transform(size, padding, grid_padding)
+	tile.update_transform(grid_size, padding, grid_padding)
 	return tile
 
 
@@ -73,6 +72,7 @@ func create_board():
 	for cell in puzzle.cells:
 		var tile := create_tile(cell)
 		tiles.append(tile)
+	_update_bounding_box()
 
 
 func _update_state():
@@ -84,6 +84,12 @@ func _update_state():
 			
 		end_ticks = Time.get_ticks_msec()
 		puzzle_completed.emit(start_ticks, end_ticks)
+
+
+func _update_bounding_box():
+	var top_left := tiles[0].position - (tiles[0].texture.get_size() * tiles[0].scale) / 2
+	var bottom_right := tiles[-1].position + (tiles[-1].texture.get_size() * tiles[-1].scale) / 2
+	bounding_box = bottom_right - top_left
 
 
 func _on_cell_type_changed(cell: Cell, old_type: Cell.Type):
@@ -99,7 +105,8 @@ func _on_cell_type_changed(cell: Cell, old_type: Cell.Type):
 
 func _on_viewport_size_changed():
 	for tile in tiles:
-		tile.update_transform(size, padding, grid_padding)
+		tile.update_transform(grid_size, padding, grid_padding)
+	_update_bounding_box()
 
 
 func undo():

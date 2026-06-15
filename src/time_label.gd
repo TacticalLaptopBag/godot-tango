@@ -1,6 +1,6 @@
 extends Label
 
-@onready var board: Board = $"../../../../../Board"
+@onready var board: Board = get_tree().get_first_node_in_group("board")
 
 
 func start():

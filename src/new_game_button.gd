@@ -15,7 +15,7 @@ func _unhandled_input(_event: InputEvent):
 
 func _on_pressed() -> void:
 	var board: Board = get_tree().get_first_node_in_group("board")
-	var puzzle: Puzzle = PuzzleProvider.generate_puzzle(board.size, board.debug)
+	var puzzle: Puzzle = PuzzleProvider.generate_puzzle(board.grid_size, board.debug)
 	board.puzzle = puzzle
 	for node in hide_on_pressed:
 		node.visible = false
