@@ -2,22 +2,55 @@
 
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
+[ext_resource type="Theme" uid="uid://bopxbva0ifjvt" path="res://theme.tres" id="2_0tnpc"]
+[ext_resource type="Script" uid="uid://c7ycb12j8di3r" path="res://src/time_label.gd" id="2_gee14"]
 [ext_resource type="Texture2D" uid="uid://bx822jd5i3308" path="res://img/undo_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_iywne"]
 [ext_resource type="Script" uid="uid://6h3db65lygke" path="res://src/undo_button.gd" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://sna8alvlu7ae" path="res://src/exit_button.gd" id="6_u5sy4"]
+
+[sub_resource type="GDScript" id="GDScript_u5sy4"]
+script/source = "extends HBoxContainer
+
+
+func _on_board_puzzle_completed(_start_ticks: int, _end_ticks: int) -> void:
+	visible = false
+
+
+func _on_board_puzzle_changed() -> void:
+	visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_gee14"]
+script/source = "extends PanelContainer
+
+
+@export var time_label: Label
+
+@onready var time_label_fmt := time_label.text
+
+
+func _on_board_puzzle_completed(start_ticks: int, end_ticks: int) -> void:
+	visible = true
+	
+	var time_ms := end_ticks - start_ticks
+	var formatted_time := Util.format_ms(time_ms)
+	time_label.text = time_label_fmt % formatted_time
+"
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=838880534]
 
 [node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
+debug = true
 padding = -8
 grid_padding = Vector2(0, 104)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=67938082]
+[node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=67938082]
 
-[node name="UI" type="Control" parent="CanvasLayer" unique_id=1313506943]
+[node name="UI" type="Control" parent="UICanvasLayer" unique_id=1313506943]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,8 +58,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_0tnpc")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI" unique_id=2008328514]
+[node name="MarginContainer" type="MarginContainer" parent="UICanvasLayer/UI" unique_id=2008328514]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,34 +73,91 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer" unique_id=1369882172]
+[node name="TopRow" type="HBoxContainer" parent="UICanvasLayer/UI/MarginContainer" unique_id=1369882172]
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
+alignment = 1
 
-[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer" unique_id=1096244475]
+[node name="Time" type="Label" parent="UICanvasLayer/UI/MarginContainer/TopRow" unique_id=1947271793]
+layout_mode = 2
+text = "0:00"
+script = ExtResource("2_gee14")
+
+[node name="BottomRow" type="HBoxContainer" parent="UICanvasLayer/UI/MarginContainer" unique_id=1096244475]
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 24
 alignment = 1
+script = SubResource("GDScript_u5sy4")
 
-[node name="Undo" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1460636056]
+[node name="Undo" type="Button" parent="UICanvasLayer/UI/MarginContainer/BottomRow" unique_id=1460636056]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("2_iywne")
 script = ExtResource("2_lnu2h")
 
-[node name="New Game" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1061882864]
+[node name="New Game" type="Button" parent="UICanvasLayer/UI/MarginContainer/BottomRow" unique_id=1061882864]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("4_p57ef")
 script = ExtResource("1_yqjtg")
 
+[node name="DialogContainer" type="CenterContainer" parent="UICanvasLayer/UI/MarginContainer" unique_id=712856594]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_gee14")
+time_label = NodePath("MarginContainer/VBoxContainer/Content")
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog" unique_id=1030433429]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer" unique_id=895123823]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=600898379]
+layout_mode = 2
+text = "you're winner!"
+horizontal_alignment = 1
+
+[node name="Content" type="Label" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1008680778]
+layout_mode = 2
+text = "Time: %s"
+horizontal_alignment = 1
+
+[node name="Action Buttons" type="HBoxContainer" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1891311119]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1395640848]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("6_u5sy4")
+
+[node name="New Game" type="Button" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=2090387668 node_paths=PackedStringArray("hide_on_pressed")]
+layout_mode = 2
+text = "New Game"
+script = ExtResource("1_yqjtg")
+hide_on_pressed = [NodePath("../../../..")]
+
 [node name="ConfettiParticles" parent="." unique_id=667145340 instance=ExtResource("6_p57ef")]
 position = Vector2(0, 360)
 scale = Vector2(10, 10)
 
-[connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="emit"]
+[connection signal="puzzle_changed" from="Board" to="UICanvasLayer/UI/MarginContainer/TopRow/Time" method="start"]
+[connection signal="puzzle_changed" from="Board" to="UICanvasLayer/UI/MarginContainer/BottomRow" method="_on_board_puzzle_changed"]
+[connection signal="puzzle_changed" from="Board" to="ConfettiParticles" method="stop"]
+[connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/MarginContainer/BottomRow" method="_on_board_puzzle_completed"]
+[connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog" method="_on_board_puzzle_completed"]
+[connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="_on_puzzle_completed"]
+[connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/MarginContainer/TopRow/Time" method="stop" unbinds=2]

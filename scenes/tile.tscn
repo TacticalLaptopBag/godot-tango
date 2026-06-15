@@ -33,7 +33,7 @@ weak_magnitude = 0.0
 metadata/_custom_type_script = "uid://c26mk37sdphu6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpg2"]
-size = Vector2(48, 48)
+size = Vector2(60, 60)
 
 [node name="Tile" type="Sprite2D" unique_id=1042738421]
 texture = ExtResource("1_jy7pm")

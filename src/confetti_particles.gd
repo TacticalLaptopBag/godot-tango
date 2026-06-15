@@ -10,6 +10,16 @@ func _ready() -> void:
 			emitters.append(child)
 
 
+func _on_puzzle_completed(_start_ticks: int, _end_ticks: int):
+	emit()
+
+
 func emit():
 	for emitter in emitters:
 		emitter.emitting = true
+
+
+func stop():
+	# We could make the particles invisible, but it feels wrong
+	for emitter in emitters:
+		emitter.emitting = false

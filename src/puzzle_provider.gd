@@ -6,7 +6,7 @@ const ATTEMPT_TIMEOUT_MS := 1000
 const CONSTRAINT_CHANCE := 0.05
 
 
-func generate_puzzle(size: int) -> Puzzle:
+func generate_puzzle(size: int, debug: bool) -> Puzzle:
 	var puzzle := Puzzle.new(size)
 
 	var start_ticks := Time.get_ticks_msec()
@@ -18,7 +18,7 @@ func generate_puzzle(size: int) -> Puzzle:
 			problem_cells = puzzle.get_problem_cells()
 			if Time.get_ticks_msec() - start_ticks >= ATTEMPT_TIMEOUT_MS:
 				# This is taking too long... try again
-				return generate_puzzle(size)
+				return generate_puzzle(size, debug)
 	var end_ticks := Time.get_ticks_msec()
 	print("Generation took "+str(end_ticks - start_ticks)+"ms")
 
@@ -39,20 +39,21 @@ func generate_puzzle(size: int) -> Puzzle:
 	# Removing one cell will always remain solvable
 	puzzle.cells.pick_random().type = Cell.Type.EMPTY
 
-	start_ticks = Time.get_ticks_msec()
-	var remove_attempt := 0
-	while remove_attempt < size:
-		var filled_cells := puzzle.get_filled_cells()
-		var cell: Cell = filled_cells.pick_random()
-		var filled_type := cell.type
-		cell.type = Cell.Type.EMPTY
-		if PuzzleSolver.solve(puzzle):
-			remove_attempt = 0
-		else:
-			cell.type = filled_type
-			remove_attempt += 1
-	end_ticks = Time.get_ticks_msec()
-	print("Removal took "+str(end_ticks - start_ticks)+"ms")
+	if not OS.has_feature("editor") or not debug:
+		start_ticks = Time.get_ticks_msec()
+		var remove_attempt := 0
+		while remove_attempt < size:
+			var filled_cells := puzzle.get_filled_cells()
+			var cell: Cell = filled_cells.pick_random()
+			var filled_type := cell.type
+			cell.type = Cell.Type.EMPTY
+			if PuzzleSolver.solve(puzzle):
+				remove_attempt = 0
+			else:
+				cell.type = filled_type
+				remove_attempt += 1
+		end_ticks = Time.get_ticks_msec()
+		print("Removal took "+str(end_ticks - start_ticks)+"ms")
 
 	for filled_cell in puzzle.get_filled_cells():
 		filled_cell.locked = true
