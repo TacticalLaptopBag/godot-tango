@@ -138,6 +138,7 @@ horizontal_alignment = 1
 
 [node name="Action Buttons" type="HBoxContainer" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1891311119]
 layout_mode = 2
+alignment = 1
 
 [node name="Exit" type="Button" parent="UICanvasLayer/UI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1395640848]
 layout_mode = 2
