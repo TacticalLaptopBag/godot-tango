@@ -2,7 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://bx822jd5i3308" path="res://img/undo_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_iywne"]
 [ext_resource type="Script" uid="uid://6h3db65lygke" path="res://src/undo_button.gd" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
@@ -10,7 +13,7 @@
 
 [node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
 padding = -8
-grid_padding = Vector2(0, 55)
+grid_padding = Vector2(0, 104)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=67938082]
 
@@ -52,12 +55,18 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Undo"
+icon = ExtResource("2_iywne")
 script = ExtResource("2_lnu2h")
 
 [node name="New Game" type="Button" parent="CanvasLayer/UI/MarginContainer/BottomRow" unique_id=1061882864]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "New Game"
+icon = ExtResource("4_p57ef")
 script = ExtResource("1_yqjtg")
+
+[node name="ConfettiParticles" parent="." unique_id=667145340 instance=ExtResource("6_p57ef")]
+position = Vector2(0, 360)
+scale = Vector2(10, 10)
+
+[connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="emit"]

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://j1b52jqppnm7"]
+
+[ext_resource type="Script" uid="uid://clnfgqwkrkpro" path="res://src/confetti_particles.gd" id="1_57p5r"]
+[ext_resource type="PackedScene" uid="uid://6abywmpilx68" path="res://scenes/confetti_particle_emitter.tscn" id="1_x0sws"]
+
+[node name="ConfettiParticles" type="Node2D" unique_id=667145340]
+script = ExtResource("1_57p5r")
+
+[node name="Green" parent="." unique_id=910443324 instance=ExtResource("1_x0sws")]
+modulate = Color(0.40032005, 0.72, 0.20159999, 1)
+
+[node name="Red" parent="." unique_id=24228107 instance=ExtResource("1_x0sws")]
+modulate = Color(0.74, 0.088800006, 0.088800006, 1)
+
+[node name="Blue" parent="." unique_id=1041612443 instance=ExtResource("1_x0sws")]
+modulate = Color(0.088800006, 0.55549335, 0.74, 1)
+
+[node name="Yellow" parent="." unique_id=235014503 instance=ExtResource("1_x0sws")]
+modulate = Color(0.88, 0.81488, 0.22879998, 1)
+
+[node name="Pink" parent="." unique_id=560921905 instance=ExtResource("1_x0sws")]
+modulate = Color(0.88, 0.45759997, 0.81663996, 1)
