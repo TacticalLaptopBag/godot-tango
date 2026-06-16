@@ -15,7 +15,6 @@ func _ready() -> void:
 	buttons[8].toggled.connect(_on_x8_toggled)
 	var grid_size = DataPersistence.data.get_or_add("grid_size", 6)
 	var available_sizes = PuzzleProvider.get_available_sizes()
-	print(available_sizes)
 	for button_grid_size in buttons:
 		var button := buttons[button_grid_size]
 		button.button_pressed = button_grid_size == grid_size
@@ -43,6 +42,5 @@ func _on_x8_toggled(toggled_on: bool):
 
 
 func _on_puzzle_generated(available_sizes: Array[int]):
-	print(available_sizes)
 	for button_grid_size in buttons:
 		buttons[button_grid_size].disabled = button_grid_size not in available_sizes

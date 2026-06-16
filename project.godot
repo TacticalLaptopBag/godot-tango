@@ -18,9 +18,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PuzzleProvider="*uid://do02lgavtgwfu"
 ControllerIcons="*uid://03d5os808qy6"
 DataPersistence="*uid://c5i0k08iibtuy"
+PuzzleProvider="*uid://d1cu3rqbmefuj"
 
 [display]
 
@@ -30,6 +30,10 @@ window/size/initial_position_type=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[dotnet]
+
+project/assembly_name="Tango"
 
 [editor_plugins]
 

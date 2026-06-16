@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d1cu3rqbmefuj"]
+
+[ext_resource type="Script" uid="uid://do02lgavtgwfu" path="res://src/puzzle_provider.gd" id="1_d4gyh"]
+[ext_resource type="Script" uid="uid://bj7cunb2b4h3h" path="res://src/puzzle_generator.gd" id="2_x2mjg"]
+
+[sub_resource type="Resource" id="Resource_gl0nk"]
+script = ExtResource("2_x2mjg")
+grid_size = 4
+metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
+
+[sub_resource type="Resource" id="Resource_y3b73"]
+script = ExtResource("2_x2mjg")
+metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
+
+[sub_resource type="Resource" id="Resource_8srxi"]
+script = ExtResource("2_x2mjg")
+grid_size = 8
+metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
+
+[node name="PuzzleProvider" type="Node" unique_id=1897165730]
+script = ExtResource("1_d4gyh")
+_generators = Array[ExtResource("2_x2mjg")]([SubResource("Resource_gl0nk"), SubResource("Resource_y3b73"), SubResource("Resource_8srxi")])

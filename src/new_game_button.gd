@@ -4,6 +4,9 @@ extends Button
 @export var hide_on_pressed: Array[Control] = []
 
 
+# TODO: Disable if current grid option is not yet available from the PuzzleProvider
+
+
 func _ready() -> void:
 	pressed.connect(_on_pressed)
 
