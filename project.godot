@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tango"
-run/main_scene="uid://pc17b160dokd"
+run/main_scene="uid://c3c6xkh2j60ve"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"

@@ -7,9 +7,9 @@ extends HBoxContainer
 
 
 func _ready() -> void:
-	x4.pressed.connect(_on_x4_pressed)
-	x6.pressed.connect(_on_x6_pressed)
-	x8.pressed.connect(_on_x8_pressed)
+	x4.toggled.connect(_on_x4_toggled)
+	x6.toggled.connect(_on_x6_toggled)
+	x8.toggled.connect(_on_x8_toggled)
 	var grid_size = DataPersistence.data.get_or_add("grid_size", 6)
 	x4.button_pressed = grid_size == 4
 	x6.button_pressed = grid_size == 6
@@ -18,15 +18,19 @@ func _ready() -> void:
 
 func _set_grid_size(grid_size: int):
 	DataPersistence.data["grid_size"] = grid_size
+	DataPersistence.save()
 
 
-func _on_x4_pressed():
+func _on_x4_toggled(toggled_on: bool):
+	if not toggled_on: return
 	_set_grid_size(4)
 
 
-func _on_x6_pressed():
+func _on_x6_toggled(toggled_on: bool):
+	if not toggled_on: return
 	_set_grid_size(6)
 
 
-func _on_x8_pressed():
+func _on_x8_toggled(toggled_on: bool):
+	if not toggled_on: return
 	_set_grid_size(8)

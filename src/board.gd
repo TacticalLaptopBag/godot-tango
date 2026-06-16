@@ -7,7 +7,9 @@ extends Node2D
 
 
 @export var debug := false
-@export var grid_size := 6
+@export var grid_size := 6:
+	get:
+		return DataPersistence.data.get_or_add("grid_size", 6)
 @export var padding := 12
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene
@@ -34,7 +36,7 @@ signal puzzle_completed(start_ticks: int, end_ticks: int)
 
 
 func _ready():
-	puzzle = PuzzleProvider.generate_puzzle(grid_size, debug)
+	puzzle = PuzzleProvider.generate_puzzle(debug)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 

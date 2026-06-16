@@ -6,7 +6,8 @@ const ATTEMPT_TIMEOUT_MS := 1000
 const CONSTRAINT_CHANCE := 0.05
 
 
-func generate_puzzle(size: int, debug: bool) -> Puzzle:
+func generate_puzzle(debug: bool) -> Puzzle:
+	var size: int = DataPersistence.data.get_or_add("grid_size", 6)
 	var puzzle := Puzzle.new(size)
 
 	var start_ticks := Time.get_ticks_msec()
@@ -18,7 +19,7 @@ func generate_puzzle(size: int, debug: bool) -> Puzzle:
 			problem_cells = puzzle.get_problem_cells()
 			if Time.get_ticks_msec() - start_ticks >= ATTEMPT_TIMEOUT_MS:
 				# This is taking too long... try again
-				return generate_puzzle(size, debug)
+				return generate_puzzle(debug)
 	var end_ticks := Time.get_ticks_msec()
 	print("Generation took "+str(end_ticks - start_ticks)+"ms")
 
