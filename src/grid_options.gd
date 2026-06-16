@@ -1,19 +1,25 @@
 extends HBoxContainer
 
 
-@onready var x4: Button = $"4x4"
-@onready var x6: Button = $"6x6"
-@onready var x8: Button = $"8x8"
+@onready var buttons: Dictionary[int, Button] = {
+	4: $"4x4",
+	6: $"6x6",
+	8: $"8x8",
+}
 
 
 func _ready() -> void:
-	x4.toggled.connect(_on_x4_toggled)
-	x6.toggled.connect(_on_x6_toggled)
-	x8.toggled.connect(_on_x8_toggled)
+	PuzzleProvider.puzzle_generated.connect(_on_puzzle_generated)
+	buttons[4].toggled.connect(_on_x4_toggled)
+	buttons[6].toggled.connect(_on_x6_toggled)
+	buttons[8].toggled.connect(_on_x8_toggled)
 	var grid_size = DataPersistence.data.get_or_add("grid_size", 6)
-	x4.button_pressed = grid_size == 4
-	x6.button_pressed = grid_size == 6
-	x8.button_pressed = grid_size == 8
+	var available_sizes = PuzzleProvider.get_available_sizes()
+	print(available_sizes)
+	for button_grid_size in buttons:
+		var button := buttons[button_grid_size]
+		button.button_pressed = button_grid_size == grid_size
+		button.disabled = button_grid_size not in available_sizes
 
 
 func _set_grid_size(grid_size: int):
@@ -34,3 +40,9 @@ func _on_x6_toggled(toggled_on: bool):
 func _on_x8_toggled(toggled_on: bool):
 	if not toggled_on: return
 	_set_grid_size(8)
+
+
+func _on_puzzle_generated(available_sizes: Array[int]):
+	print(available_sizes)
+	for button_grid_size in buttons:
+		buttons[button_grid_size].disabled = button_grid_size not in available_sizes
