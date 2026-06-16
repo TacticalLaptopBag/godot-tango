@@ -2,9 +2,7 @@ class_name PuzzleGenerator
 extends Resource
 
 const TYPES := [Cell.Type.SUN, Cell.Type.MOON]
-const ATTEMPT_TIMEOUT_MS := 30000
 const CONSTRAINT_CHANCE := 0.05
-
 
 @export var debug := false
 @export var pool_size := 10
@@ -14,29 +12,24 @@ var _puzzles: Array[Puzzle] = []
 var _puzzles_lock := Mutex.new()
 var puzzle_generated_sem := Semaphore.new()
 
-var _exiting := false
-var _exiting_lock := Mutex.new()
-var _generator_sem := Semaphore.new()
-var _generator_thread: Thread = null
+# Tracks how many puzzles are currently being generated, so we don't
+# over-schedule when multiple get_puzzle() calls come in at once.
+var _in_flight := 0
+var _in_flight_lock := Mutex.new()
+var _task_ids: Array[int] = []
 
 signal puzzle_generated(generator: PuzzleGenerator)
 
 
-# TODO: WorkerThreadPool
-
-
 func queue_generation():
-	if _generator_thread == null:
-		_generator_thread = Thread.new()
-		_generator_thread.start(_generator)
-	_generator_sem.post()
+	_top_up_pool()
 
 
-func is_puzzle_ready():
+func is_puzzle_ready() -> bool:
 	_puzzles_lock.lock()
 	var size := _puzzles.size()
 	_puzzles_lock.unlock()
-	return size
+	return size > 0
 
 
 func get_puzzle() -> Puzzle:
@@ -44,48 +37,57 @@ func get_puzzle() -> Puzzle:
 	var puzzle: Puzzle = _puzzles.pop_front()
 	_puzzles_lock.unlock()
 
-	_generator_sem.post()
+	# A puzzle was consumed — schedule a replacement.
+	_top_up_pool()
+
 	if puzzle == null:
 		puzzle_generated_sem.wait()
 		return get_puzzle()
-	
+
 	return puzzle
 
 
-func start_cleanup():
-	_exiting_lock.lock()
-	_exiting = true
-	_exiting_lock.unlock()
-	_generator_sem.post()
-
-
+# No thread ownership to clean up — WorkerThreadPool manages its own
+# threads. Call this if you need to wait for all in-flight tasks before
+# quitting, e.g. in _notification(NOTIFICATION_WM_CLOSE_REQUEST).
 func wait_for_cleanup_finish():
-	_generator_thread.wait_to_finish()
+	for task_id in _task_ids:
+		WorkerThreadPool.wait_for_task_completion(task_id)
 
 
-func _generator():
-	while true:
-		_generator_sem.wait()
+func _top_up_pool():
+	_puzzles_lock.lock()
+	var ready := _puzzles.size()
+	_puzzles_lock.unlock()
 
-		_exiting_lock.lock()
-		var should_exit := _exiting
-		_exiting_lock.unlock()
+	_in_flight_lock.lock()
+	var in_flight := _in_flight
+	_in_flight_lock.unlock()
 
-		if should_exit:
-			break
+	var needed := pool_size - ready - in_flight
+	for _i in range(needed):
+		_in_flight_lock.lock()
+		_in_flight += 1
+		_in_flight_lock.unlock()
+		var task_id := WorkerThreadPool.add_task(_generate_and_store)
+		_task_ids.append(task_id)
 
-		_puzzles_lock.lock()
-		var puzzles_size := _puzzles.size()
-		_puzzles_lock.unlock()
-		for _i in range(pool_size - puzzles_size):
-			var puzzle := _generate_puzzle(grid_size)
-			_puzzles_lock.lock()
-			_puzzles.push_back(puzzle)
-			DataPersistence.data["puzzles_%d" % grid_size] = _puzzles.duplicate()
-			_puzzles_lock.unlock()
-			puzzle_generated_sem.post()
-			puzzle_generated.emit.call_deferred(self)
-		DataPersistence.save()
+
+func _generate_and_store():
+	var puzzle := _generate_puzzle(grid_size)
+
+	_puzzles_lock.lock()
+	_puzzles.push_back(puzzle)
+	DataPersistence.data["puzzles_%d" % grid_size] = _puzzles.duplicate()
+	_puzzles_lock.unlock()
+
+	_in_flight_lock.lock()
+	_in_flight -= 1
+	_in_flight_lock.unlock()
+
+	DataPersistence.save()
+	puzzle_generated_sem.post()
+	puzzle_generated.emit.call_deferred(self)
 
 
 func _fill_grid(puzzle: Puzzle, index: int) -> bool:
@@ -107,7 +109,6 @@ func _fill_grid(puzzle: Puzzle, index: int) -> bool:
 
 
 func _generate_puzzle(size: int) -> Puzzle:
-	# TODO: Generating an 8x8 puzzle takes far too long
 	print("Generating %dx%d puzzle..." % [grid_size, grid_size])
 	var puzzle := Puzzle.new(size)
 
@@ -121,7 +122,6 @@ func _generate_puzzle(size: int) -> Puzzle:
 			continue
 		for direction in Cell.Direction.values():
 			if cell.get_constraint(direction) != Cell.Constraint.NONE:
-				# Direction already constrained previously, check others
 				continue
 			if randf() > CONSTRAINT_CHANCE:
 				continue
@@ -130,7 +130,6 @@ func _generate_puzzle(size: int) -> Puzzle:
 			if neighbor != null:
 				neighbor.constrain_direction(Cell.invert_direction(direction))
 
-	# Removing one cell will always remain solvable
 	puzzle.cells.pick_random().type = Cell.Type.EMPTY
 
 	if not OS.has_feature("editor") or not debug:
