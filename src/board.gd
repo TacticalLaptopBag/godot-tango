@@ -4,7 +4,6 @@ extends Node2D
 
 # TODO: Title screen
 	# TODO: Return to title screen from game
-# TODO: Fix constraints not being rendered in certain unknown cases
 # TODO: Art
 
 
