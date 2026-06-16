@@ -13,7 +13,7 @@ func _ready() -> void:
 	buttons[4].toggled.connect(_on_x4_toggled)
 	buttons[6].toggled.connect(_on_x6_toggled)
 	buttons[8].toggled.connect(_on_x8_toggled)
-	var grid_size = DataPersistence.data.get_or_add("grid_size", 6)
+	var grid_size = DataPersistence.grid_size
 	var available_sizes = PuzzleProvider.get_available_sizes()
 	for button_grid_size in buttons:
 		var button := buttons[button_grid_size]
@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func _set_grid_size(grid_size: int):
-	DataPersistence.data["grid_size"] = grid_size
+	DataPersistence.grid_size = grid_size
 	DataPersistence.save()
 
 

@@ -22,6 +22,7 @@ signal puzzle_generated(generator: PuzzleGenerator)
 
 
 func queue_generation():
+	_puzzles = DataPersistence.fetch_puzzles(grid_size)
 	_top_up_pool()
 
 
@@ -36,6 +37,8 @@ func get_puzzle() -> Puzzle:
 	_puzzles_lock.lock()
 	var puzzle: Puzzle = _puzzles.pop_front()
 	_puzzles_lock.unlock()
+	DataPersistence.remove_first_puzzle(puzzle.grid_size())
+	DataPersistence.save()
 
 	# A puzzle was consumed — schedule a replacement.
 	_top_up_pool()
@@ -57,14 +60,14 @@ func wait_for_cleanup_finish():
 
 func _top_up_pool():
 	_puzzles_lock.lock()
-	var ready := _puzzles.size()
+	var puzzles_ready := _puzzles.size()
 	_puzzles_lock.unlock()
 
 	_in_flight_lock.lock()
 	var in_flight := _in_flight
 	_in_flight_lock.unlock()
 
-	var needed := pool_size - ready - in_flight
+	var needed := pool_size - puzzles_ready - in_flight
 	for _i in range(needed):
 		_in_flight_lock.lock()
 		_in_flight += 1
@@ -78,7 +81,7 @@ func _generate_and_store():
 
 	_puzzles_lock.lock()
 	_puzzles.push_back(puzzle)
-	DataPersistence.data["puzzles_%d" % grid_size] = _puzzles.duplicate()
+	DataPersistence.store_puzzle(puzzle)
 	_puzzles_lock.unlock()
 
 	_in_flight_lock.lock()

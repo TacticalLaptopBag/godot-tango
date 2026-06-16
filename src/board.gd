@@ -13,7 +13,7 @@ extends Node2D
 var bounding_box := Vector2.ZERO
 var grid_size := 6:
 	get:
-		return DataPersistence.data.get_or_add("grid_size", 6)
+		return DataPersistence.grid_size
 
 @onready var puzzle := Puzzle.new(grid_size):
 	set(value):
