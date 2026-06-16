@@ -163,16 +163,6 @@ func _on_cell_locked_changed(_cell: Cell, _old_locked: bool):
 	_update_color()
 
 
-func _update_constraint_label(label: Label, constraint: Cell.Constraint):
-	match constraint:
-		Cell.Constraint.NONE:
-			label.text = ""
-		Cell.Constraint.EQUAL:
-			label.text = "="
-		Cell.Constraint.OPPOSITE:
-			label.text = "X"
-
-
 func _on_cell_constraint_changed(_cell: Cell, _direction: Cell.Direction, _old_constraint: Cell.Constraint):
 	north_constraint_equals.visible = cell.north_constraint == Cell.Constraint.EQUAL
 	north_constraint_opposite.visible = cell.north_constraint == Cell.Constraint.OPPOSITE

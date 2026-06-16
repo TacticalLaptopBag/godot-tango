@@ -68,32 +68,6 @@ z_index = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickDetector" unique_id=907866706]
 shape = SubResource("RectangleShape2D_gtpg2")
 
-[node name="NorthConstraint" type="Label" parent="." unique_id=766942174]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -52.0
-offset_top = -48.0
-offset_right = -28.0
-offset_bottom = -24.0
-grow_horizontal = 2
-horizontal_alignment = 1
-
-[node name="EastConstraint" type="Label" parent="." unique_id=608005149]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -52.0
-offset_right = -32.0
-offset_bottom = -28.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 8
-horizontal_alignment = 1
-
 [node name="NorthConstraintEquals" type="Sprite2D" parent="." unique_id=1679478219]
 position = Vector2(0, -36)
 scale = Vector2(0.5, 0.5)
@@ -101,7 +75,8 @@ texture = ExtResource("6_gtpg2")
 
 [node name="NorthConstraintOpposite" type="Sprite2D" parent="." unique_id=1761893216]
 position = Vector2(0, -36)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_284l3")
 
 [node name="EastConstraintEquals" type="Sprite2D" parent="." unique_id=1979375054]
 position = Vector2(36, 0)
@@ -110,7 +85,8 @@ texture = ExtResource("6_gtpg2")
 
 [node name="EastConstraintOpposite" type="Sprite2D" parent="." unique_id=956348599]
 position = Vector2(36, 0)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_284l3")
 
 [node name="LongPressTimer" type="Timer" parent="." unique_id=421255309]
 wait_time = 0.2
