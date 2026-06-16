@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 PuzzleProvider="*uid://do02lgavtgwfu"
 ControllerIcons="*uid://03d5os808qy6"
+DataPersistence="*uid://c5i0k08iibtuy"
 
 [display]
 
@@ -36,7 +37,7 @@ project/assembly_name="Tango"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/persistence_node/plugin.cfg")
 
 [global_group]
 

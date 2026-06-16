@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qp586uy1cn2r"
-path="res://.godot/imported/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg-f241adaf43d661204cebae23829e1d27.ctex"
+uid="uid://ivpvo0jkpjqk"
+path="res://.godot/imported/hardisk_original.png-5f4a716aaac5504979b81cb908945a8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg"
-dest_files=["res://.godot/imported/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg-f241adaf43d661204cebae23829e1d27.ctex"]
+source_file="res://images/hardisk_original.png"
+dest_files=["res://.godot/imported/hardisk_original.png-5f4a716aaac5504979b81cb908945a8d.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=2.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

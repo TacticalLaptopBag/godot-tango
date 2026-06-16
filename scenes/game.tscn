@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://dyipj57gr314k" path="res://src/board_ui.gd" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://biputapsowccm" path="res://scenes/play_button.tscn" id="9_dinhu"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="10_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="10_trtic"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="11_trtic"]
@@ -35,12 +34,20 @@ script/source = "extends PanelContainer
 @onready var time_label_fmt := time_label.text
 
 
+func _ready():
+    visible = false
+
+
 func _on_board_puzzle_completed(start_ticks: int, end_ticks: int) -> void:
-	visible = true
-	
-	var time_ms := end_ticks - start_ticks
-	var formatted_time := Util.format_ms(time_ms)
-	time_label.text = time_label_fmt % formatted_time
+    visible = true
+    
+    var time_ms := end_ticks - start_ticks
+    var formatted_time := Util.format_ms(time_ms)
+    time_label.text = time_label_fmt % formatted_time
+
+
+func _on_board_puzzle_changed() -> void:
+    visible = false
 "
 
 [node name="Game" type="Node2D" unique_id=1986065374]
@@ -61,6 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BoardUI" type="Control" parent="UICanvasLayer/UI" unique_id=1313506943]
 layout_mode = 1
@@ -127,6 +135,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
+visible = false
 layout_mode = 2
 script = SubResource("GDScript_gee14")
 time_label = NodePath("MarginContainer/VBoxContainer/Content")
@@ -155,8 +164,12 @@ horizontal_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Play Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=597162648 instance=ExtResource("9_dinhu")]
+[node name="New Game" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1202926301]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("4_p57ef")
+script = ExtResource("1_yqjtg")
 
 [node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1971162748 instance=ExtResource("10_trtic")]
 layout_mode = 2
@@ -173,6 +186,7 @@ scale = Vector2(10, 10)
 
 [connection signal="puzzle_changed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/TopRow/Time" method="start"]
 [connection signal="puzzle_changed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" method="_on_board_puzzle_changed"]
+[connection signal="puzzle_changed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog" method="_on_board_puzzle_changed"]
 [connection signal="puzzle_changed" from="Board" to="ConfettiParticles" method="stop"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" method="_on_board_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog" method="_on_board_puzzle_completed"]

@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dbismkobg3r5m"]
 
 [ext_resource type="Texture2D" uid="uid://16dabt8j1kh4" path="res://img/mobile_vibrate_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="1_3e1lx"]
+[ext_resource type="Script" uid="uid://c4gsvxh0ruwcn" path="res://src/vibrate_toggle_on.gd" id="2_ulmha"]
 [ext_resource type="Texture2D" uid="uid://004sagxjva7w" path="res://img/mobile_cancel_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="2_y5w7u"]
+[ext_resource type="Script" uid="uid://dhpqacql0b3ju" path="res://src/vibrate_toggle_off.gd" id="4_0t2fq"]
 
 [node name="Vibrate Toggle" type="CenterContainer" unique_id=1938221906]
 
@@ -9,9 +11,11 @@
 layout_mode = 2
 icon = ExtResource("1_3e1lx")
 alignment = 0
+script = ExtResource("2_ulmha")
 
 [node name="Vibrate Toggle Off" type="Button" parent="." unique_id=1256619178]
 visible = false
 layout_mode = 2
 icon = ExtResource("2_y5w7u")
 alignment = 0
+script = ExtResource("4_0t2fq")

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c5i0k08iibtuy"]
+
+[ext_resource type="Script" uid="uid://b82hvskt8v2sn" path="res://addons/persistence_node/persistence_node.gd" id="1_a6u36"]
+
+[node name="DataPersistence" type="Node" unique_id=814044828]
+script = ExtResource("1_a6u36")
+metadata/_custom_type_script = "uid://b82hvskt8v2sn"

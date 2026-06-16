@@ -15,6 +15,9 @@ extends Resource
 
 
 func vibrate():
+	if DataPersistence.data.get_or_add("vibrate", true) == false:
+		return
+
 	if haptic_devices & 1:
 		Input.start_joy_vibration(0, weak_magnitude, strong_magnitude, duration_ms / 1000.0)
 		
