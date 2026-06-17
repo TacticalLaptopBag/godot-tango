@@ -4,10 +4,13 @@
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
 [ext_resource type="Theme" uid="uid://bopxbva0ifjvt" path="res://theme.tres" id="2_0tnpc"]
 [ext_resource type="Script" uid="uid://c7ycb12j8di3r" path="res://src/time_label.gd" id="2_gee14"]
+[ext_resource type="Texture2D" uid="uid://ca0qb51pxw072" path="res://img/menu_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_ir15t"]
 [ext_resource type="Texture2D" uid="uid://bx822jd5i3308" path="res://img/undo_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_iywne"]
 [ext_resource type="Script" uid="uid://6h3db65lygke" path="res://src/undo_button.gd" id="2_lnu2h"]
+[ext_resource type="Script" uid="uid://rx57leif5crf" path="res://src/scene_button.gd" id="3_ca42v"]
 [ext_resource type="Script" uid="uid://dyipj57gr314k" path="res://src/board_ui.gd" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://c3c6xkh2j60ve" path="res://scenes/main_menu.tscn" id="4_rysoc"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="10_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="10_trtic"]
@@ -55,7 +58,6 @@ func _on_board_puzzle_changed() -> void:
 [node name="Camera2D" type="Camera2D" parent="." unique_id=838880534]
 
 [node name="Board" parent="." unique_id=1823476214 groups=["board"] instance=ExtResource("1_uwrxv")]
-debug = true
 padding = -8
 grid_padding = Vector2(0, 104)
 
@@ -69,6 +71,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Menu Button" type="Button" parent="UICanvasLayer/UI" unique_id=644274769]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 84.0
+offset_bottom = 84.0
+icon = ExtResource("2_ir15t")
+script = ExtResource("3_ca42v")
+scene = ExtResource("4_rysoc")
 
 [node name="BoardUI" type="Control" parent="UICanvasLayer/UI" unique_id=1313506943]
 layout_mode = 1
@@ -122,13 +134,6 @@ script = ExtResource("2_lnu2h")
 
 [node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1938221906 instance=ExtResource("10_trtic")]
 layout_mode = 2
-
-[node name="New Game" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1464061693]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-icon = ExtResource("4_p57ef")
-script = ExtResource("1_yqjtg")
 
 [node name="DialogContainer" type="CenterContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=712856594]
 layout_mode = 2

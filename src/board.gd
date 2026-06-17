@@ -2,8 +2,6 @@ class_name Board
 extends Node2D
 
 
-# TODO: Title screen
-	# TODO: Return to title screen from game
 # TODO: Art
 
 

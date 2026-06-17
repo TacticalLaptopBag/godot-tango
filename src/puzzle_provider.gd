@@ -38,7 +38,4 @@ func _on_puzzle_generated(_generator: PuzzleGenerator):
 
 func _exit_tree() -> void:
 	for generator in _generators:
-		generator.start_cleanup()
-
-	for generator in _generators:
 		generator.wait_for_cleanup_finish()
