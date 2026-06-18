@@ -174,9 +174,6 @@ size_flags_vertical = 4
 icon = ExtResource("4_p57ef")
 script = ExtResource("1_yqjtg")
 
-[node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1971162748 instance=ExtResource("10_trtic")]
-layout_mode = 2
-
 [node name="Quit Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1881093083 instance=ExtResource("10_kvuet")]
 layout_mode = 2
 
