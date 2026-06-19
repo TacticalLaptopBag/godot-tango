@@ -18,7 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			move(-1, 0)
 		if Input.is_action_just_pressed("right"):
 			move(1, 0)
-	
+
 		var tile := board.get_tile(selected_slot)
 		if Input.is_action_just_pressed("toggle"):
 			tile.toggle_tile_type()
@@ -41,7 +41,7 @@ func move(x: int, y: int):
 		selected_slot += Vector2i(x, y)
 	# Source: https://medium.com/@lnandanapalli/efficient-array-wrapping-the-modulo-trick-every-developer-should-know-7ee614272100
 	selected_slot = ((selected_slot % board.grid_size) + Vector2i(board.grid_size, board.grid_size)) % board.grid_size
-	
+
 	if old_slot != DESELECTED_SLOT:
 		board.get_tile(old_slot).selected = false
 	board.get_tile(selected_slot).selected = true
