@@ -6,6 +6,9 @@ Puzzles are randomly generated, and are validated with a rule-based solver.
 
 No internet connection required.
 
+Don't want to download? Play in your web browser on [itch.io][itch]
+
+
 ## How to play
 
  * Fill the grid so that each cell contains either a Sun or a Moon
@@ -51,3 +54,4 @@ Claude was used to program the puzzle solver used to generate puzzles.
 
 
 [tango]: https://www.linkedin.com/games/tango/
+[itch]: https://tacticallaptopbag.itch.io/tango
