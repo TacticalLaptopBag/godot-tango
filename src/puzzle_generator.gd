@@ -18,6 +18,9 @@ var _in_flight := 0
 var _in_flight_lock := Mutex.new()
 var _task_ids: Array[int] = []
 
+var _stop := false
+var _stop_lock := Mutex.new()
+
 signal puzzle_generated(generator: PuzzleGenerator)
 
 
@@ -54,6 +57,9 @@ func get_puzzle() -> Puzzle:
 # threads. Call this if you need to wait for all in-flight tasks before
 # quitting, e.g. in _notification(NOTIFICATION_WM_CLOSE_REQUEST).
 func wait_for_cleanup_finish():
+	_stop_lock.lock()
+	_stop = true
+	_stop_lock.unlock()
 	for task_id in _task_ids:
 		WorkerThreadPool.wait_for_task_completion(task_id)
 
@@ -78,6 +84,8 @@ func _top_up_pool():
 
 func _generate_and_store():
 	var puzzle := _generate_puzzle(grid_size)
+	if puzzle == null:
+		return
 
 	_puzzles_lock.lock()
 	_puzzles.push_back(puzzle)
@@ -111,6 +119,17 @@ func _fill_grid(puzzle: Puzzle, index: int) -> bool:
 	return false
 
 
+func _should_stop() -> bool:
+	_stop_lock.lock()
+	var should_stop := _stop
+	_stop_lock.unlock()
+	if should_stop:
+		_in_flight_lock.lock()
+		_in_flight -= 1
+		_in_flight_lock.unlock()
+	return should_stop
+
+
 func _generate_puzzle(size: int) -> Puzzle:
 	print("Generating %dx%d puzzle..." % [grid_size, grid_size])
 	var puzzle := Puzzle.new(size)
@@ -121,6 +140,8 @@ func _generate_puzzle(size: int) -> Puzzle:
 	print("Generation for %dx%d took %dms" % [grid_size, grid_size, end_ticks - start_ticks])
 
 	for cell in puzzle.cells:
+		if _should_stop():
+			return null
 		if cell.type == Cell.Type.EMPTY:
 			continue
 		for direction in Cell.Direction.values():
@@ -139,6 +160,8 @@ func _generate_puzzle(size: int) -> Puzzle:
 		start_ticks = Time.get_ticks_msec()
 		var remove_attempt := 0
 		while remove_attempt < size * size:
+			if _should_stop():
+				return null
 			var filled_cells := puzzle.get_filled_cells()
 			var cell: Cell = filled_cells.pick_random()
 			var filled_type := cell.type
