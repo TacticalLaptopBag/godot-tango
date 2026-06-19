@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bs2ggo21bonk2" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dndn3whlx6b48" path="res://src/new_game_button.gd" id="1_yqjtg"]
 [ext_resource type="Theme" uid="uid://bopxbva0ifjvt" path="res://theme.tres" id="2_0tnpc"]
+[ext_resource type="Theme" uid="uid://cvb3w225i6ntw" path="res://material3/dark/material-theme-dark.tres" id="2_ca42v"]
 [ext_resource type="Script" uid="uid://c7ycb12j8di3r" path="res://src/time_label.gd" id="2_gee14"]
 [ext_resource type="Texture2D" uid="uid://ca0qb51pxw072" path="res://img/menu_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_ir15t"]
 [ext_resource type="Texture2D" uid="uid://bx822jd5i3308" path="res://img/undo_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_iywne"]
@@ -70,6 +71,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_ca42v")
 
 [node name="Menu Button" type="Button" parent="UICanvasLayer/UI" unique_id=644274769]
 layout_mode = 1

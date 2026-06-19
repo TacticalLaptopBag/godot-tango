@@ -14,6 +14,7 @@ config/name="Tango"
 run/main_scene="uid://c3c6xkh2j60ve"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/bg_color=Color(0.078431375, 0.07058824, 0.09411765, 1)
 config/icon="res://icon.svg"
 
 [autoload]
@@ -114,3 +115,4 @@ new_game={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.078431375, 0.07058824, 0.09411765, 1)
