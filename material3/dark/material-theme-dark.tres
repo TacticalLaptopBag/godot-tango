@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cxt1qhsbcar4c" path="res://material3/dark/toggle_off_24dp_222026_FILL1_wght400_GRAD0_opsz24.svg" id="14_5bev3"]
 [ext_resource type="Texture2D" uid="uid://cqndh7aukotws" path="res://material3/dark/toggle_on_24dp_222026_FILL1_wght400_GRAD0_opsz24.svg" id="15_qy4ad"]
 [ext_resource type="Texture2D" uid="uid://ck0cqiwr0h3ch" path="res://material3/dark/toggle_on_24dp_938F99_FILL1_wght400_GRAD0_opsz24.svg" id="16_x1de7"]
-[ext_resource type="FontFile" uid="uid://dpv14tiglgqeq" path="res://material3/dark/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf" id="17_g5ddh"]
+[ext_resource type="FontFile" uid="uid://dpv14tiglgqeq" path="res://material3/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf" id="17_rp4ps"]
 [ext_resource type="Texture2D" uid="uid://dxbfim8ubko6r" path="res://material3/dark/arrow_drop_down_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="18_wfeya"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5w3x"]
@@ -110,7 +110,7 @@ expand_margin_bottom = 12.0
 shadow_size = 2
 
 [resource]
-default_font = ExtResource("17_g5ddh")
+default_font = ExtResource("17_rp4ps")
 BoxContainer/constants/separation = 16
 Button/colors/font_color = Color(0.8156863, 0.7372549, 1, 1)
 Button/colors/font_disabled_color = Color(0.40392157, 0.39215687, 0.41568628, 1)
@@ -118,6 +118,12 @@ Button/colors/font_focus_color = Color(0.80784315, 0.7294118, 0.9882353, 1)
 Button/colors/font_hover_color = Color(0.6784314, 0.6156863, 0.827451, 1)
 Button/colors/font_hover_pressed_color = Color(0.8156863, 0.7372549, 1, 1)
 Button/colors/font_pressed_color = Color(0.8156863, 0.7372549, 1, 1)
+Button/colors/icon_disabled_color = Color(0.40392157, 0.39215687, 0.41568628, 1)
+Button/colors/icon_focus_color = Color(0.80784315, 0.7294118, 0.9882353, 1)
+Button/colors/icon_hover_color = Color(0.6784314, 0.6156863, 0.827451, 1)
+Button/colors/icon_hover_pressed_color = Color(0.8156863, 0.7372549, 1, 1)
+Button/colors/icon_normal_color = Color(0.8156863, 0.7372549, 1, 1)
+Button/colors/icon_pressed_color = Color(0.8156863, 0.7372549, 1, 1)
 Button/styles/disabled = SubResource("StyleBoxFlat_n5w3x")
 Button/styles/focus = SubResource("StyleBoxFlat_cjoeg")
 Button/styles/hover = SubResource("StyleBoxFlat_8vlet")
@@ -141,7 +147,7 @@ CheckButton/icons/unchecked_disabled = ExtResource("14_5bev3")
 CheckButton/icons/unchecked_disabled_mirrored = ExtResource("15_qy4ad")
 CheckButton/icons/unchecked_mirrored = ExtResource("16_x1de7")
 Control/font_sizes/font_size = 30
-Control/fonts/font = ExtResource("17_g5ddh")
+Control/fonts/font = ExtResource("17_rp4ps")
 Label/colors/font_color = Color(0.8156863, 0.7372549, 1, 1)
 OptionButton/icons/arrow = ExtResource("18_wfeya")
 Panel/styles/panel = SubResource("StyleBoxFlat_a42nv")
