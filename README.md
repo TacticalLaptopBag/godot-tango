@@ -34,6 +34,7 @@ Don't want to download? Play in your web browser on [itch.io][itch]
  * Space / E: Toggle Sun -> Moon -> Blank
  * Shift / Q: Toggle Moon -> Blank
  * CTRL / F: Clear tile
+ * Z: Undo
  * Escape: New Game
 
 
@@ -44,7 +45,8 @@ All face buttons assume XBox-style layout
  * Left stick / D-Pad: Select tile
  * (A): Toggle Sun -> Moon -> Blank
  * (X): Toggle Moon -> Blank
- * (B): Clear tile
+ * (Y): Clear tile
+ * (B): Undo
  * Menu: New Game
 
 
