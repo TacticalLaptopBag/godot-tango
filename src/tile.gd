@@ -2,9 +2,6 @@ class_name Tile
 extends Sprite2D
 
 
-@export var invalid_color := Color.RED
-@export var locked_color := Color.GRAY
-@export var invalid_locked_color := Color.DARK_RED
 @export var tap_haptics := HapticConfig.new()
 @export var long_press_haptics := HapticConfig.new()
 @export var invalid_haptics := HapticConfig.new()
@@ -43,7 +40,11 @@ var cell: Cell = null:
 		cell.invalid_changed.connect(_on_cell_invalid_changed)
 		cell.locked_changed.connect(_on_cell_locked_changed)
 		cell.constraint_changed.connect(_on_cell_constraint_changed)
-		_update_appearance()
+		_update_theme(ThemeManager.current_theme)
+
+
+func _ready() -> void:
+	ThemeManager.theme_changed.connect(_update_theme)
 
 
 func _update_appearance():
@@ -113,19 +114,30 @@ func clear_tile():
 
 
 func _update_color():
+	sun.modulate = ThemeManager.current_theme.sun
+	moon.modulate = ThemeManager.current_theme.moon
+	north_constraint_equals.modulate = ThemeManager.current_theme.constraint
+	north_constraint_opposite.modulate = ThemeManager.current_theme.constraint
+	east_constraint_equals.modulate = ThemeManager.current_theme.constraint
+	east_constraint_opposite.modulate = ThemeManager.current_theme.constraint
+	selection_indicator.modulate = ThemeManager.current_theme.selection
+	locked_sprite.modulate = ThemeManager.current_theme.locked
+
 	if cell.invalid and cell.locked:
-		self_modulate = invalid_locked_color
+		self_modulate = ThemeManager.current_theme.invalid_locked
+		invalid_sprite.modulate = ThemeManager.current_theme.invalid_locked
 		return
 
 	if cell.invalid:
-		self_modulate = invalid_color
+		self_modulate = ThemeManager.current_theme.invalid
+		invalid_sprite.modulate = ThemeManager.current_theme.invalid
 		return
 
 	if cell.locked:
-		self_modulate = locked_color
+		self_modulate = ThemeManager.current_theme.locked
 		return
-	
-	self_modulate = Color.WHITE
+
+	self_modulate = ThemeManager.current_theme.normal
 
 
 func _update_type_appearance():
@@ -174,15 +186,21 @@ func update_transform(grid_size: int, tile_padding: int, grid_padding: Vector2):
 	var viewport_size := get_viewport().get_visible_rect().size - (grid_padding * 2)
 	var cell_size: float = min(viewport_size.x / grid_size, viewport_size.y / grid_size)
 	var texture_size := Vector2(texture.get_width(), texture.get_height())
-	
+
 	var scale_factor := Vector2(cell_size, cell_size) / texture_size
 	var tile_size := texture_size * scale_factor
 	var tile_position := (cell.position - Vector2(grid_size / 2.0, grid_size / 2.0)) * (tile_size + Vector2(tile_padding, tile_padding))
 	tile_position += tile_size / 2.0
-	
+
 	position = tile_position
 	scale = scale_factor
 
 
 func _on_invalid_timer_timeout() -> void:
 	_update_invalid_appearance()
+
+
+func _update_theme(theme: GameTheme):
+	if not is_node_ready(): return
+	if theme == null: return
+	_update_appearance()

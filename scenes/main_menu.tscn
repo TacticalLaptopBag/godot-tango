@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c3c6xkh2j60ve"]
 
 [ext_resource type="Theme" uid="uid://cvb3w225i6ntw" path="res://material3/dark/material-theme-dark.tres" id="1_rtw2f"]
+[ext_resource type="Script" uid="uid://bib3k74oa0xq" path="res://src/ui_root.gd" id="2_oa1go"]
 [ext_resource type="PackedScene" uid="uid://biputapsowccm" path="res://scenes/play_button.tscn" id="2_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="3_8ln24"]
 [ext_resource type="Script" uid="uid://bcvt47tkvddw" path="res://src/start_game_button.gd" id="3_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="5_oa1go"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="7_oa1go"]
+[ext_resource type="PackedScene" uid="uid://lflfbqsybwg1" path="res://scenes/theme_switch_btn.tscn" id="8_tbmy8"]
 
 [node name="Main Menu" type="Control" unique_id=1887483758]
 layout_mode = 3
@@ -15,6 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rtw2f")
+script = ExtResource("2_oa1go")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=336666361]
 layout_mode = 1
@@ -49,3 +52,6 @@ layout_mode = 2
 
 [node name="Grid Options" parent="CenterContainer/Title Screen" unique_id=1359782417 instance=ExtResource("7_oa1go")]
 layout_mode = 2
+
+[node name="Theme Switch" parent="." unique_id=1268724542 instance=ExtResource("8_tbmy8")]
+layout_mode = 1

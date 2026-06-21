@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GameTheme" format=3 uid="uid://bueqika6emswt"]
+
+[ext_resource type="Script" uid="uid://yy2lugkcy2wv" path="res://src/game_theme.gd" id="1_08x23"]
+[ext_resource type="Theme" uid="uid://cvb3w225i6ntw" path="res://material3/dark/material-theme-dark.tres" id="2_6188t"]
+
+[resource]
+script = ExtResource("1_08x23")
+name = "Purple (Dark)"
+default_clear_color = Color(0.078431375, 0.07058824, 0.09411765, 1)
+ui_theme = ExtResource("2_6188t")
+normal = Color(0.24705882, 0.23529412, 0.2627451, 1)
+invalid = Color(1, 0.32941177, 0.28627452, 1)
+invalid_locked = Color(0.65882355, 0.22352941, 0.19215687, 1)
+locked = Color(0.12156863, 0.11372549, 0.13333334, 1)
+sun = Color(1, 0.9490196, 0.7411765, 1)
+moon = Color(0.8156863, 0.7372549, 1, 1)
+constraint = Color(0.7411765, 1, 0.77254903, 1)
+selection = Color(0.74, 1, 0.766, 0.49803922)
+metadata/_custom_type_script = "uid://yy2lugkcy2wv"

@@ -8,10 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://ca0qb51pxw072" path="res://img/menu_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_ir15t"]
 [ext_resource type="Texture2D" uid="uid://bx822jd5i3308" path="res://img/undo_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="2_iywne"]
 [ext_resource type="Script" uid="uid://6h3db65lygke" path="res://src/undo_button.gd" id="2_lnu2h"]
+[ext_resource type="Script" uid="uid://bib3k74oa0xq" path="res://src/ui_root.gd" id="3_rysoc"]
 [ext_resource type="Script" uid="uid://cwnl50yjsym1r" path="res://src/main_menu_button.gd" id="3_trtic"]
 [ext_resource type="Script" uid="uid://dyipj57gr314k" path="res://src/board_ui.gd" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://lflfbqsybwg1" path="res://scenes/theme_switch_btn.tscn" id="6_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="10_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="10_trtic"]
 [ext_resource type="Texture2D" uid="uid://d1sc44drlq2db" path="res://img/crown_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="11_ca42v"]
@@ -73,6 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_ca42v")
+script = ExtResource("3_rysoc")
 
 [node name="Menu Button" type="Button" parent="UICanvasLayer/UI" unique_id=644274769]
 layout_mode = 1
@@ -82,6 +85,9 @@ offset_right = 84.0
 offset_bottom = 84.0
 icon = ExtResource("2_ir15t")
 script = ExtResource("3_trtic")
+
+[node name="Theme Switch" parent="UICanvasLayer/UI" unique_id=1268724542 instance=ExtResource("6_ssvqc")]
+layout_mode = 1
 
 [node name="BoardUI" type="Control" parent="UICanvasLayer/UI" unique_id=1313506943]
 layout_mode = 1
@@ -141,6 +147,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
+visible = false
 layout_mode = 2
 script = SubResource("GDScript_gee14")
 time_label = NodePath("MarginContainer/VBoxContainer/Content")

@@ -13,6 +13,11 @@ var vibrate: bool:
 		return _persistence.data.get_or_add("vibrate", true)
 	set(value):
 		_persistence.data["vibrate"] = value
+var current_theme: String:
+	get:
+		return _persistence.data.get_or_add("theme", "Purple (Dark)")
+	set(value):
+		_persistence.data["theme"] = value
 
 
 func save():

@@ -36,6 +36,7 @@ metadata/_custom_type_script = "uid://c26mk37sdphu6"
 size = Vector2(60, 60)
 
 [node name="Tile" type="Sprite2D" unique_id=1042738421]
+self_modulate = Color(0.24705882, 0.23529412, 0.2627451, 1)
 texture = ExtResource("1_jy7pm")
 script = ExtResource("2_6p3j2")
 tap_haptics = SubResource("Resource_j3iir")
@@ -43,23 +44,23 @@ long_press_haptics = SubResource("Resource_j8k5k")
 invalid_haptics = SubResource("Resource_w8vld")
 
 [node name="Locked" type="Sprite2D" parent="." unique_id=574931525]
-modulate = Color(0.7708395, 0.77083945, 0.7708394, 1)
+modulate = Color(0.12156863, 0.11372549, 0.13333334, 1)
 texture = ExtResource("3_a2bny")
 
 [node name="Sun" type="Sprite2D" parent="." unique_id=1535633344]
-modulate = Color(0.86692446, 0.6791556, 0.31972727, 1)
+modulate = Color(1, 0.9490196, 0.7411765, 1)
 texture = ExtResource("2_q7utx")
 
 [node name="Moon" type="Sprite2D" parent="." unique_id=1536696781]
-modulate = Color(0.47560003, 0.6420599, 0.82, 1)
+modulate = Color(0.8156863, 0.7372549, 1, 1)
 position = Vector2(1, 1)
 rotation = 0.7853982
 texture = ExtResource("3_6p3j2")
 flip_h = true
 
 [node name="Invalid" type="Sprite2D" parent="." unique_id=377537915]
-modulate = Color(1, 0, 0, 1)
-scale = Vector2(1.5, 1.5)
+modulate = Color(1, 0.32941177, 0.28627452, 1)
+scale = Vector2(1.25, 1.25)
 texture = ExtResource("7_284l3")
 
 [node name="ClickDetector" type="Area2D" parent="." unique_id=1523545792]
@@ -69,21 +70,29 @@ z_index = 1
 shape = SubResource("RectangleShape2D_gtpg2")
 
 [node name="NorthConstraintEquals" type="Sprite2D" parent="." unique_id=1679478219]
+modulate = Color(0.7411765, 1, 0.77254903, 1)
+z_index = 5
 position = Vector2(0, -36)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_gtpg2")
 
 [node name="NorthConstraintOpposite" type="Sprite2D" parent="." unique_id=1761893216]
+modulate = Color(0.7411765, 1, 0.77254903, 1)
+z_index = 5
 position = Vector2(0, -36)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_284l3")
 
 [node name="EastConstraintEquals" type="Sprite2D" parent="." unique_id=1979375054]
+modulate = Color(0.7411765, 1, 0.77254903, 1)
+z_index = 5
 position = Vector2(36, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_gtpg2")
 
 [node name="EastConstraintOpposite" type="Sprite2D" parent="." unique_id=956348599]
+modulate = Color(0.7411765, 1, 0.77254903, 1)
+z_index = 5
 position = Vector2(36, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_284l3")
@@ -97,6 +106,7 @@ wait_time = 0.333
 one_shot = true
 
 [node name="SelectionIndicator" type="Sprite2D" parent="." unique_id=2033087331]
+visible = false
 modulate = Color(0.53400004, 0.7713333, 0.89, 1)
 texture = ExtResource("1_jy7pm")
 

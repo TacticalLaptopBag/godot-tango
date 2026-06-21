@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b1fevwj7qddno"]
+
+[ext_resource type="Script" uid="uid://dkth2x7nrgkjp" path="res://src/theme_manager.gd" id="1_acig2"]
+[ext_resource type="Script" uid="uid://yy2lugkcy2wv" path="res://src/game_theme.gd" id="2_yg76c"]
+[ext_resource type="Resource" uid="uid://bueqika6emswt" path="res://themes/purple_dark.tres" id="3_8w3rs"]
+[ext_resource type="Resource" uid="uid://xyggxfcy6b2t" path="res://themes/purple_light.tres" id="3_yg76c"]
+
+[node name="ThemeManager" type="Node" unique_id=1995167755]
+script = ExtResource("1_acig2")
+themes = Array[ExtResource("2_yg76c")]([ExtResource("3_yg76c"), ExtResource("3_8w3rs")])
