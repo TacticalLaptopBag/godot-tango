@@ -14,10 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://qp586uy1cn2r" path="res://img/add_2_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://j1b52jqppnm7" path="res://scenes/confetti_particles.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://lflfbqsybwg1" path="res://scenes/theme_switch_btn.tscn" id="6_ssvqc"]
+[ext_resource type="Script" uid="uid://d0lvaibgqjg03" path="res://src/selector.gd" id="10_264po"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="10_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="10_trtic"]
+[ext_resource type="Script" uid="uid://cst7k2yr77w6t" path="res://src/ui_init.gd" id="11_1kice"]
 [ext_resource type="Texture2D" uid="uid://d1sc44drlq2db" path="res://img/crown_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="11_ca42v"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="11_trtic"]
+[ext_resource type="Script" uid="uid://be2h3iuojs1he" path="res://src/focus_on_visible.gd" id="18_5newe"]
 
 [sub_resource type="GDScript" id="GDScript_u5sy4"]
 script/source = "extends HBoxContainer
@@ -30,6 +33,12 @@ func _on_board_puzzle_completed(_start_ticks: int, _end_ticks: int) -> void:
 func _on_board_puzzle_changed() -> void:
 	visible = true
 "
+
+[sub_resource type="InputEventAction" id="InputEventAction_264po"]
+action = &"undo"
+
+[sub_resource type="Shortcut" id="Shortcut_1kice"]
+events = [SubResource("InputEventAction_264po")]
 
 [sub_resource type="GDScript" id="GDScript_gee14"]
 script/source = "extends PanelContainer
@@ -83,11 +92,17 @@ offset_left = 28.0
 offset_top = 28.0
 offset_right = 84.0
 offset_bottom = 84.0
+focus_neighbor_top = NodePath("../BoardUI/MarginContainer/BottomRow/Undo")
+focus_neighbor_right = NodePath("../Theme Switch")
+focus_neighbor_bottom = NodePath("../BoardUI/MarginContainer/Selector")
 icon = ExtResource("2_ir15t")
 script = ExtResource("3_trtic")
 
 [node name="Theme Switch" parent="UICanvasLayer/UI" unique_id=1268724542 instance=ExtResource("6_ssvqc")]
 layout_mode = 1
+focus_neighbor_left = NodePath("../Menu Button")
+focus_neighbor_top = NodePath("../BoardUI/MarginContainer/BottomRow/Vibrate Toggle")
+focus_neighbor_bottom = NodePath("../BoardUI/MarginContainer/Selector")
 
 [node name="BoardUI" type="Control" parent="UICanvasLayer/UI" unique_id=1313506943]
 layout_mode = 1
@@ -124,6 +139,21 @@ layout_mode = 2
 text = "0:00"
 script = ExtResource("2_gee14")
 
+[node name="Selector" type="Control" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=287740884 node_paths=PackedStringArray("ui_up", "ui_left", "ui_right", "ui_down", "unfocus_on_win")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 2
+script = ExtResource("10_264po")
+ui_up = NodePath("../../../Menu Button")
+ui_left = NodePath("../BottomRow/Undo")
+ui_right = NodePath("../BottomRow/Vibrate Toggle")
+ui_down = NodePath("../BottomRow/Undo")
+unfocus_on_win = [NodePath("../../../Menu Button"), NodePath("../../../Theme Switch"), NodePath("../BottomRow/Undo"), NodePath("../BottomRow/Vibrate Toggle"), NodePath(".")]
+
+[node name="UI Init" type="Node" parent="UICanvasLayer/UI/BoardUI/MarginContainer/Selector" unique_id=1728327370]
+script = ExtResource("11_1kice")
+
 [node name="BottomRow" type="HBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=1096244475]
 layout_mode = 2
 size_flags_vertical = 8
@@ -136,11 +166,18 @@ script = SubResource("GDScript_u5sy4")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../Selector")
+focus_neighbor_right = NodePath("../Vibrate Toggle")
+focus_neighbor_bottom = NodePath("../../../../Menu Button")
+shortcut = SubResource("Shortcut_1kice")
 icon = ExtResource("2_iywne")
 script = ExtResource("2_lnu2h")
 
 [node name="Vibrate Toggle" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1938221906 instance=ExtResource("10_trtic")]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Undo")
+focus_neighbor_top = NodePath("../../Selector")
+focus_neighbor_bottom = NodePath("../../../../Theme Switch")
 
 [node name="DialogContainer" type="CenterContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=712856594]
 layout_mode = 2
@@ -162,10 +199,14 @@ theme_override_constants/margin_bottom = 12
 [node name="VBoxContainer" type="VBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer" unique_id=895123823]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=295629421]
+[node name="Crown" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=861082073]
 layout_mode = 2
-texture = ExtResource("11_ca42v")
-stretch_mode = 5
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+icon = ExtResource("11_ca42v")
+flat = true
 
 [node name="Content" type="Label" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1008680778]
 layout_mode = 2
@@ -182,6 +223,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("4_p57ef")
 script = ExtResource("1_yqjtg")
+
+[node name="Focus On Visible" type="Node" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons/New Game" unique_id=1846849195]
+script = ExtResource("18_5newe")
 
 [node name="Quit Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/Action Buttons" unique_id=1881093083 instance=ExtResource("10_kvuet")]
 layout_mode = 2
@@ -201,3 +245,5 @@ scale = Vector2(10, 10)
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog" method="_on_board_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="_on_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/TopRow/Time" method="stop" unbinds=2]
+
+[editable path="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow/Vibrate Toggle"]

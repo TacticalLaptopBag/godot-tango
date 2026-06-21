@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://biputapsowccm" path="res://scenes/play_button.tscn" id="2_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://dbismkobg3r5m" path="res://scenes/vibrate_toggle.tscn" id="3_8ln24"]
 [ext_resource type="Script" uid="uid://bcvt47tkvddw" path="res://src/start_game_button.gd" id="3_rtw2f"]
+[ext_resource type="Script" uid="uid://cst7k2yr77w6t" path="res://src/ui_init.gd" id="5_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="5_oa1go"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="7_oa1go"]
 [ext_resource type="PackedScene" uid="uid://lflfbqsybwg1" path="res://scenes/theme_switch_btn.tscn" id="8_tbmy8"]
@@ -43,6 +44,9 @@ alignment = 1
 [node name="Play Button" parent="CenterContainer/Title Screen/Action Buttons" unique_id=597162648 instance=ExtResource("2_rtw2f")]
 layout_mode = 2
 script = ExtResource("3_rtw2f")
+
+[node name="UI Init" type="Node" parent="CenterContainer/Title Screen/Action Buttons/Play Button" unique_id=1752247803]
+script = ExtResource("5_jk1qb")
 
 [node name="Vibrate Toggle" parent="CenterContainer/Title Screen/Action Buttons" unique_id=1938221906 instance=ExtResource("3_8ln24")]
 layout_mode = 2

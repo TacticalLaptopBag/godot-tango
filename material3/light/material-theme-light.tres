@@ -92,28 +92,20 @@ shadow_color = Color(0, 0, 0, 0.29803923)
 shadow_size = 1
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_60exp"]
-load_path = "res://.godot/imported/check_box_24dp_D0BCFF_FILL1_wght400_GRAD0_opsz24.svg-9ddcabccec185e6c738be3933365264a.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ju0f7"]
-load_path = "res://.godot/imported/check_box_24dp_67646A_FILL1_wght400_GRAD0_opsz24.svg-5867ce5d0e8d997b648b2f64b086accb.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o3870"]
-load_path = "res://.godot/imported/radio_button_checked_24dp_D0BCFF_FILL1_wght400_GRAD0_opsz24.svg-fde4245fee3004b13a3015e609e53682.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g2lkn"]
-load_path = "res://.godot/imported/radio_button_checked_24dp_646067_FILL1_wght400_GRAD0_opsz24.svg-f5208b4257247e63bf49fb8c5a3860b2.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nk60j"]
-load_path = "res://.godot/imported/radio_button_unchecked_24dp_CAC4D0_FILL1_wght400_GRAD0_opsz24.svg-6fc4a7a8e63cbbddce5df2f6d2c04db6.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h40ue"]
-load_path = "res://.godot/imported/radio_button_unchecked_24dp_646067_FILL1_wght400_GRAD0_opsz24.svg-4e7e0648343fce83f4d6bb389ebb1274.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m41tc"]
-load_path = "res://.godot/imported/check_box_outline_blank_24dp_C7C1CD_FILL1_wght400_GRAD0_opsz24.svg-79ab24a58a33f047d4b19e7c5eb3a927.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ybulb"]
-load_path = "res://.godot/imported/check_box_outline_blank_24dp_69666C_FILL1_wght400_GRAD0_opsz24.svg-d047ad413f950588b1c9aec65be33954.ctex"
 
 [sub_resource type="Image" id="Image_qciud"]
 data = {
@@ -654,6 +646,7 @@ expand_margin_left = 12.0
 expand_margin_top = 12.0
 expand_margin_right = 12.0
 expand_margin_bottom = 12.0
+shadow_color = Color(0, 0, 0, 0.29803923)
 shadow_size = 2
 
 [resource]
