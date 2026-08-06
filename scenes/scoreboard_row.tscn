@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://baxxwm7mikvat"]
+
+[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://panel_raised_1.tres" id="1_8itpj"]
+
+[node name="ScoreRow" type="PanelContainer" unique_id=1021280612]
+theme_override_styles/panel = ExtResource("1_8itpj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1692175566]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Timestamp" type="Label" parent="HBoxContainer" unique_id=510052891]
+layout_mode = 2
+text = "2026-08-06 17:28:13"
+
+[node name="CompletionTime" type="Label" parent="HBoxContainer" unique_id=1539028109]
+layout_mode = 2
+text = "1:23"

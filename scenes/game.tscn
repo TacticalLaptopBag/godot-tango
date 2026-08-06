@@ -20,7 +20,11 @@
 [ext_resource type="Script" uid="uid://cst7k2yr77w6t" path="res://src/ui_init.gd" id="11_1kice"]
 [ext_resource type="Texture2D" uid="uid://d1sc44drlq2db" path="res://img/crown_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="11_ca42v"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="11_trtic"]
+[ext_resource type="Script" uid="uid://bj8yi5w3ycoms" path="res://src/scoreboard.gd" id="16_pl11u"]
+[ext_resource type="PackedScene" uid="uid://baxxwm7mikvat" path="res://scenes/scoreboard_row.tscn" id="17_bhx41"]
 [ext_resource type="Script" uid="uid://be2h3iuojs1he" path="res://src/focus_on_visible.gd" id="18_5newe"]
+[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://panel_raised_1.tres" id="18_qnb83"]
+[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://panel_accent_1.tres" id="19_sww3w"]
 
 [sub_resource type="GDScript" id="GDScript_u5sy4"]
 script/source = "extends HBoxContainer
@@ -124,19 +128,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 62
+theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="TopRow" type="HBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=1369882172]
+[node name="TopRow" type="MarginContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=1857705121]
 layout_mode = 2
 size_flags_vertical = 0
-mouse_filter = 2
-alignment = 1
+theme_override_constants/margin_top = 38
 
 [node name="Time" type="Label" parent="UICanvasLayer/UI/BoardUI/MarginContainer/TopRow" unique_id=1947271793]
 layout_mode = 2
+size_flags_vertical = 1
 text = "0:00"
+horizontal_alignment = 1
 script = ExtResource("2_gee14")
 
 [node name="Selector" type="Control" parent="UICanvasLayer/UI/BoardUI/MarginContainer" unique_id=287740884 node_paths=PackedStringArray("ui_up", "ui_left", "ui_right", "ui_down", "unfocus_on_win")]
@@ -184,7 +189,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
-visible = false
 layout_mode = 2
 script = SubResource("GDScript_gee14")
 time_label = NodePath("MarginContainer/VBoxContainer/Content")
@@ -212,6 +216,37 @@ flat = true
 layout_mode = 2
 text = "%s"
 horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1714248916]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 18
+
+[node name="Scoreboard" type="VBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer" unique_id=1483746994]
+layout_mode = 2
+theme_override_constants/separation = 32
+script = ExtResource("16_pl11u")
+panel_scene = ExtResource("17_bhx41")
+panel_default_style = ExtResource("18_qnb83")
+panel_accent_style = ExtResource("19_sww3w")
+
+[node name="ScoreRow" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=1021280612 instance=ExtResource("17_bhx41")]
+layout_mode = 2
+
+[node name="ScoreRow2" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=771261344 instance=ExtResource("17_bhx41")]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("19_sww3w")
+
+[node name="ScoreRow3" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=545491402 instance=ExtResource("17_bhx41")]
+layout_mode = 2
+
+[node name="ScoreRow4" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=2009305609 instance=ExtResource("17_bhx41")]
+layout_mode = 2
+
+[node name="ScoreRow5" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=1387026261 instance=ExtResource("17_bhx41")]
+layout_mode = 2
 
 [node name="Action Buttons" type="HBoxContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer" unique_id=1891311119]
 layout_mode = 2
