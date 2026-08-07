@@ -19,7 +19,9 @@ func set_score(score: Score):
 
 
 func _set_score(score: Score):
-	var formatted_timestamp := Time.get_datetime_string_from_unix_time(score.timestamp, true)
+	var local_time_zone := Time.get_time_zone_from_system()
+	var local_timestamp = score.timestamp + (local_time_zone["bias"] * 60)
+	var formatted_timestamp := Time.get_datetime_string_from_unix_time(local_timestamp, true)
 	var formatted_completion := Util.format_ms(score.time_ms)
 
 	_timestamp.text = formatted_timestamp
