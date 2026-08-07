@@ -54,19 +54,19 @@ script/source = "extends PanelContainer
 
 
 func _ready():
-    visible = false
+	visible = false
 
 
 func _on_board_puzzle_completed(start_ticks: int, end_ticks: int) -> void:
-    visible = true
-    
-    var time_ms := end_ticks - start_ticks
-    var formatted_time := Util.format_ms(time_ms)
-    time_label.text = time_label_fmt % formatted_time
+	visible = true
+	
+	var time_ms := end_ticks - start_ticks
+	var formatted_time := Util.format_ms(time_ms)
+	time_label.text = time_label_fmt % formatted_time
 
 
 func _on_board_puzzle_changed() -> void:
-    visible = false
+	visible = false
 "
 
 [node name="Game" type="Node2D" unique_id=1986065374]
@@ -278,8 +278,8 @@ scale = Vector2(10, 10)
 [connection signal="puzzle_changed" from="Board" to="ConfettiParticles" method="stop"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" method="_on_board_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog" method="_on_board_puzzle_completed"]
-[connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="_on_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" method="_on_board_puzzle_completed"]
+[connection signal="puzzle_completed" from="Board" to="ConfettiParticles" method="_on_puzzle_completed"]
 [connection signal="puzzle_completed" from="Board" to="UICanvasLayer/UI/BoardUI/MarginContainer/TopRow/Time" method="stop" unbinds=2]
 
 [editable path="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow/Vibrate Toggle"]

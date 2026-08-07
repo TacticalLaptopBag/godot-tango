@@ -2,9 +2,6 @@ class_name Board
 extends Node2D
 
 
-# TODO: Art
-
-
 @export var padding := 12
 @export var grid_padding := Vector2(50, 50)
 @export var tile_scene: PackedScene

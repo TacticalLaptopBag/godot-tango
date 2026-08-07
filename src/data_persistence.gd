@@ -20,6 +20,12 @@ var current_theme: String:
 		_persistence.data["theme"] = value
 
 
+const PUZZLE_FMT := "puzzles_%d"
+const SCORE_FMT := "score_%d"
+
+var latest_score: Score = null
+
+
 func save():
 	_persistence.save()
 
@@ -128,7 +134,7 @@ func deserialize_puzzle_v1(data: String) -> Puzzle:
 
 
 func store_puzzle(puzzle: Puzzle):
-	var puzzle_key := "puzzles_%d" % puzzle.grid_size()
+	var puzzle_key := PUZZLE_FMT % puzzle.grid_size()
 	var puzzle_data := serialize_puzzle(puzzle)
 	var stored_puzzles: Array = _persistence.data.get_or_add(puzzle_key, [])
 	stored_puzzles.append(puzzle_data)
@@ -136,14 +142,14 @@ func store_puzzle(puzzle: Puzzle):
 
 
 func remove_first_puzzle(puzzle_grid_size: int):
-	var puzzle_key := "puzzles_%d" % puzzle_grid_size
+	var puzzle_key := PUZZLE_FMT % puzzle_grid_size
 	var stored_puzzles: Array = _persistence.data.get_or_add(puzzle_key, [])
 	stored_puzzles.pop_front()
 	_persistence.data[puzzle_key] = stored_puzzles
 
 
 func fetch_puzzles(puzzle_grid_size: int) -> Array[Puzzle]:
-	var puzzle_key := "puzzles_%d" % puzzle_grid_size
+	var puzzle_key := PUZZLE_FMT % puzzle_grid_size
 	var stored_puzzle_data: Array = _persistence.data.get_or_add(puzzle_key, [])
 	var puzzles: Array[Puzzle] = []
 
@@ -151,3 +157,58 @@ func fetch_puzzles(puzzle_grid_size: int) -> Array[Puzzle]:
 		puzzles.append(deserialize_puzzle(puzzle_data))
 
 	return puzzles
+
+
+func serialize_score(score: Score) -> String:
+	var serialized_score := "v1:%d\t%d" % [score.time_ms, score.timestamp]
+	return serialized_score
+
+
+func deserialize_score(data: String) -> Score:
+	var score := deserialize_score_v1(data)
+	return score
+
+
+func deserialize_score_v1(data: String) -> Score:
+	# v1:123	123
+	var data_split := data.split(":")
+	var score_version = data_split[0]
+	if score_version != "v1":
+		return null
+	
+	var score_data := data_split[1]
+	var score_data_split := score_data.split("\t")
+	var score_time_ms := int(score_data_split[0])
+	var score_timestamp := int(score_data_split[1])
+	return Score.new(score_time_ms, score_timestamp)
+
+
+func store_score(score: Score, puzzle_grid_size: int):
+	var score_data := serialize_score(score)
+	var score_key := SCORE_FMT % puzzle_grid_size
+	var stored_scores: Array = _persistence.data.get_or_add(score_key, [])
+
+	# Insert s.t. faster times are at the front of the score array
+	var insert_idx := 0
+	for i in stored_scores.size():
+		var stored_score_data: String = stored_scores[i]
+		var stored_score := deserialize_score(stored_score_data)
+		if score.time_ms > stored_score.time_ms:
+			insert_idx += 1
+		else:
+			break
+
+	stored_scores.insert(insert_idx, score_data)
+	_persistence.data[score_key] = stored_scores
+	latest_score = score
+
+
+func fetch_scores(puzzle_grid_size: int) -> Array[Score]:
+	var score_key := SCORE_FMT % puzzle_grid_size
+	var stored_scores: Array = _persistence.data.get_or_add(score_key, [])
+	var scores: Array[Score] = []
+
+	for score_data in stored_scores:
+		scores.append(deserialize_score(score_data))
+
+	return scores
