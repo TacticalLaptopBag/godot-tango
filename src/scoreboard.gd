@@ -2,8 +2,6 @@ extends VBoxContainer
 
 
 @export var panel_scene: PackedScene
-@export var panel_default_style: StyleBox
-@export var panel_accent_style: StyleBox
 
 
 var latest_score: Score = null

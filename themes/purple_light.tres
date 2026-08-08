@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="GameTheme" format=3 uid="uid://xyggxfcy6b2t"]
 
+[ext_resource type="StyleBox" uid="uid://bxtvkpr6iojp5" path="res://material3/light/panel_accent_1.tres" id="1_bls4e"]
 [ext_resource type="Script" uid="uid://yy2lugkcy2wv" path="res://src/game_theme.gd" id="1_uo8tp"]
+[ext_resource type="StyleBox" uid="uid://b10f180ykegce" path="res://material3/light/panel_raised_1.tres" id="2_ljlij"]
 [ext_resource type="Theme" uid="uid://8jitidnxpeic" path="res://material3/light/material-theme-light.tres" id="2_s5vpt"]
 
 [resource]
@@ -8,6 +10,8 @@ script = ExtResource("1_uo8tp")
 name = "Purple (Light)"
 default_clear_color = Color(0.99215686, 0.96862745, 1, 1)
 ui_theme = ExtResource("2_s5vpt")
+panel_raised_style = ExtResource("2_ljlij")
+panel_accent_style = ExtResource("1_bls4e")
 normal = Color(0.88235295, 0.85882354, 0.8901961, 1)
 invalid = Color(0.8117647, 0.17254902, 0.15294118, 1)
 invalid_locked = Color(0.76, 0.16492, 0.1444, 1)

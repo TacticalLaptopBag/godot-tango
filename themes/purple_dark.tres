@@ -1,13 +1,17 @@
 [gd_resource type="Resource" script_class="GameTheme" format=3 uid="uid://bueqika6emswt"]
 
 [ext_resource type="Script" uid="uid://yy2lugkcy2wv" path="res://src/game_theme.gd" id="1_08x23"]
+[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://material3/dark/panel_accent_1.tres" id="1_no8k2"]
 [ext_resource type="Theme" uid="uid://cvb3w225i6ntw" path="res://material3/dark/material-theme-dark.tres" id="2_6188t"]
+[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://material3/dark/panel_raised_1.tres" id="2_tuolt"]
 
 [resource]
 script = ExtResource("1_08x23")
 name = "Purple (Dark)"
 default_clear_color = Color(0.078431375, 0.07058824, 0.09411765, 1)
 ui_theme = ExtResource("2_6188t")
+panel_raised_style = ExtResource("2_tuolt")
+panel_accent_style = ExtResource("1_no8k2")
 normal = Color(0.24705882, 0.23529412, 0.2627451, 1)
 invalid = Color(1, 0.32941177, 0.28627452, 1)
 invalid_locked = Color(0.65882355, 0.22352941, 0.19215687, 1)

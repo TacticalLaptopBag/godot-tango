@@ -6,6 +6,10 @@ extends Resource
 @export var default_clear_color: Color
 @export var ui_theme: Theme
 
+@export_group("UI")
+@export var panel_raised_style: StyleBox
+@export var panel_accent_style: StyleBox
+
 @export_group("Tile")
 @export var normal: Color
 @export var invalid: Color

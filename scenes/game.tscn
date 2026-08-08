@@ -23,8 +23,7 @@
 [ext_resource type="Script" uid="uid://bj8yi5w3ycoms" path="res://src/scoreboard.gd" id="16_pl11u"]
 [ext_resource type="PackedScene" uid="uid://baxxwm7mikvat" path="res://scenes/scoreboard_row.tscn" id="17_bhx41"]
 [ext_resource type="Script" uid="uid://be2h3iuojs1he" path="res://src/focus_on_visible.gd" id="18_5newe"]
-[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://panel_raised_1.tres" id="18_qnb83"]
-[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://panel_accent_1.tres" id="19_sww3w"]
+[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://material3/dark/panel_accent_1.tres" id="19_sww3w"]
 
 [sub_resource type="GDScript" id="GDScript_u5sy4"]
 script/source = "extends HBoxContainer
@@ -229,8 +228,6 @@ layout_mode = 2
 theme_override_constants/separation = 32
 script = ExtResource("16_pl11u")
 panel_scene = ExtResource("17_bhx41")
-panel_default_style = ExtResource("18_qnb83")
-panel_accent_style = ExtResource("19_sww3w")
 
 [node name="ScoreRow" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog/MarginContainer/VBoxContainer/MarginContainer/Scoreboard" unique_id=1021280612 instance=ExtResource("17_bhx41")]
 layout_mode = 2

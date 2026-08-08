@@ -5,15 +5,18 @@
 
 [sub_resource type="Resource" id="Resource_gl0nk"]
 script = ExtResource("2_x2mjg")
+debug = true
 grid_size = 4
 metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
 
 [sub_resource type="Resource" id="Resource_y3b73"]
 script = ExtResource("2_x2mjg")
+debug = true
 metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
 
 [sub_resource type="Resource" id="Resource_8srxi"]
 script = ExtResource("2_x2mjg")
+debug = true
 grid_size = 8
 metadata/_custom_type_script = "uid://bj7cunb2b4h3h"
 

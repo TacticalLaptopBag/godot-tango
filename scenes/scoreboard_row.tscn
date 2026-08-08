@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://baxxwm7mikvat"]
 
-[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://panel_raised_1.tres" id="1_8itpj"]
+[ext_resource type="StyleBox" uid="uid://bwrqgrxjsogyi" path="res://material3/dark/panel_raised_1.tres" id="1_8itpj"]
 [ext_resource type="Script" uid="uid://dexrtoayj81vx" path="res://src/scoreboard_row.gd" id="2_psqjy"]
-[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://panel_accent_1.tres" id="3_7bmjm"]
+[ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://material3/dark/panel_accent_1.tres" id="3_7bmjm"]
 
 [node name="ScoreRow" type="PanelContainer" unique_id=1021280612 node_paths=PackedStringArray("_timestamp", "_completion_time")]
 theme_override_styles/panel = ExtResource("1_8itpj")
