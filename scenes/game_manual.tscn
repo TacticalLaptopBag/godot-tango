@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://qdfi0k1ilhwd"]
+
+[ext_resource type="Texture2D" uid="uid://bsrodxjyqyw3m" path="res://img/close_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="1_eo3ev"]
+[ext_resource type="Script" uid="uid://dsdgnxqw15oul" path="res://src/game_manual.gd" id="2_ipjxo"]
+[ext_resource type="Script" uid="uid://dut156hpstvc7" path="res://src/close_button.gd" id="3_pv3m0"]
+
+[node name="Manual" type="PanelContainer" unique_id=2069666336]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ipjxo")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1034549253]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=959505335]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1276981827]
+layout_mode = 2
+
+[node name="RichTextLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1907813711]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "How to Play"
+
+[node name="Close" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1715303005 node_paths=PackedStringArray("hide_control")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("1_eo3ev")
+script = ExtResource("3_pv3m0")
+hide_control = NodePath("../../../..")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=612051722]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1923875093]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1266612497]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Your objective is to fill the board with suns and moons. Every puzzle has one unique solution that is guaranteed to be solvable.
+
+There are four rules you must follow while filling the board:
+
+Rule 1: Each row and column must have an equal amount of suns and moons.
+For example, on a 6x6 board, each row and column must have 3 suns and 3 moons.
+
+Rule 2: No more than two symbols can be in a row.
+Three or more cannot be together. Diagonal lines are OK.
+
+Rule 3: Tiles with an equal sign (=) between them must be the same symbol.
+
+Rule 4: Tiles with an X between them must be the opposite symbol.
+
+Click or tap on an empty tile to turn it into a sun. Click or tap a sun tile to turn it into a moon."
+autowrap_mode = 2
