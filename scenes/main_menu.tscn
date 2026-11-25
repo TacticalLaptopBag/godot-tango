@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cvo7wxon3in50" path="res://scenes/quit_button.tscn" id="5_oa1go"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="7_oa1go"]
 [ext_resource type="PackedScene" uid="uid://lflfbqsybwg1" path="res://scenes/theme_switch_btn.tscn" id="8_tbmy8"]
+[ext_resource type="Script" uid="uid://cx1wmficig4ds" path="res://src/version_label.gd" id="11_lgwnu"]
 
 [node name="Main Menu" type="Control" unique_id=1887483758]
 layout_mode = 3
@@ -65,3 +66,17 @@ layout_mode = 2
 
 [node name="Theme Switch" parent="." unique_id=1268724542 instance=ExtResource("8_tbmy8")]
 layout_mode = 1
+
+[node name="Version" type="Label" parent="." unique_id=336795442]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v0.0.0"
+script = ExtResource("11_lgwnu")
