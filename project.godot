@@ -23,7 +23,6 @@ config/icon="res://icon.svg"
 
 DataPersistence="*uid://c5i0k08iibtuy"
 ThemeManager="*uid://b1fevwj7qddno"
-ControllerIcons="*uid://03d5os808qy6"
 PuzzleProvider="*uid://d1cu3rqbmefuj"
 
 [display]
