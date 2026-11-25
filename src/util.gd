@@ -16,6 +16,10 @@ static func get_item_from_2d(position: Vector2i, array: Array, row_size: int, co
 	return array[item_idx]
 
 
+static func format_sec(time_sec: float) -> String:
+	return format_ms(floor(time_sec * 1000))
+
+
 static func format_ms(time_ms: int) -> String:
 	var seconds := time_ms / 1000
 	var minutes := seconds / 60

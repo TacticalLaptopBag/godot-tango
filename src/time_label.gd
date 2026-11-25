@@ -12,5 +12,5 @@ func stop():
 
 
 func _process(_delta: float) -> void:
-	var time_ms := Time.get_ticks_msec() - board.start_ticks
-	text = Util.format_ms(time_ms)
+	if board.puzzle != null and board.puzzle.timer >= 0:
+		text = Util.format_sec(board.puzzle.timer)

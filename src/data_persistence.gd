@@ -32,7 +32,7 @@ func save():
 
 
 func serialize_puzzle(puzzle: Puzzle) -> String:
-	var serialized_puzzle := "v2:%d\n" % puzzle.grid_size()
+	var serialized_puzzle := "v3:%d:%f\n" % [puzzle.grid_size(), puzzle.timer]
 	for cell in puzzle.cells:
 		serialized_puzzle += "%s,%s:%d:%d:%d:%d,%d,%d,%d\n" % [
 			cell.position.x,
@@ -52,7 +52,25 @@ func deserialize_puzzle(data: String) -> Puzzle:
 	var puzzle := deserialize_puzzle_v1(data)
 	if puzzle == null:
 		puzzle = deserialize_puzzle_v2(data)
+	if puzzle == null:
+		puzzle = deserialize_puzzle_v3(data)
 	return puzzle
+
+
+func deserialize_puzzle_v3(data: String) -> Puzzle:
+	# v3:grid_size:timer
+	# x,y:type:locked:invalid:n,e,s,w
+	var data_split := data.split("\n")
+	var puzzle_header := data_split[0].split(":")
+	var puzzle_version = puzzle_header[0]
+	if puzzle_version != "v3":
+		return null
+
+	var puzzle_grid_size := int(puzzle_header[1])
+	var puzzle_timer := float(puzzle_header[2])
+	var puzzle := Puzzle.new(puzzle_grid_size)
+	puzzle.timer = puzzle_timer
+	return _deserialize_puzzle_body_v2_v3(data_split, puzzle)
 
 
 func deserialize_puzzle_v2(data: String) -> Puzzle:
@@ -66,6 +84,10 @@ func deserialize_puzzle_v2(data: String) -> Puzzle:
 
 	var puzzle_grid_size := int(puzzle_header[1])
 	var puzzle := Puzzle.new(puzzle_grid_size)
+	return _deserialize_puzzle_body_v2_v3(data_split, puzzle)
+
+
+func _deserialize_puzzle_body_v2_v3(data_split: PackedStringArray, puzzle: Puzzle) -> Puzzle:
 	for cell_data in data_split.slice(1):
 		if cell_data.is_empty():
 			continue

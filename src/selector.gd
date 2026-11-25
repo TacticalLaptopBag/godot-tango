@@ -124,7 +124,7 @@ func move(x: int, y: int):
 		board.get_tile(selected_slot).selected = true
 
 
-func _on_puzzle_completed(_start_ticks: int, _end_ticks: int):
+func _on_puzzle_completed(_timer: float):
 	for control in unfocus_on_win:
 		control.focus_mode = Control.FOCUS_NONE
 

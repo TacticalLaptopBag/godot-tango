@@ -23,55 +23,20 @@
 [ext_resource type="Texture2D" uid="uid://d1sc44drlq2db" path="res://img/crown_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" id="11_ca42v"]
 [ext_resource type="PackedScene" uid="uid://c06aql8tn7la" path="res://scenes/grid_options.tscn" id="11_trtic"]
 [ext_resource type="Texture2D" uid="uid://osbrspjrdhv7" path="res://img/delete_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" id="14_pl11u"]
+[ext_resource type="Script" uid="uid://btnm5qrrtlnq" path="res://src/bottom_row.gd" id="14_sgl2t"]
 [ext_resource type="Script" uid="uid://bj8yi5w3ycoms" path="res://src/scoreboard.gd" id="16_pl11u"]
 [ext_resource type="PackedScene" uid="uid://baxxwm7mikvat" path="res://scenes/scoreboard_row.tscn" id="17_bhx41"]
 [ext_resource type="Script" uid="uid://bsxl0ld3htgs2" path="res://src/reset_button.gd" id="17_suyxu"]
 [ext_resource type="Script" uid="uid://be2h3iuojs1he" path="res://src/focus_on_visible.gd" id="18_5newe"]
 [ext_resource type="StyleBox" uid="uid://b4arnxwxqko2j" path="res://material3/dark/panel_accent_1.tres" id="19_sww3w"]
+[ext_resource type="Script" uid="uid://cr5t3rxlvcgbc" path="res://src/victory_dialog.gd" id="22_qouja"]
 [ext_resource type="PackedScene" uid="uid://qdfi0k1ilhwd" path="res://scenes/game_manual.tscn" id="26_qnb83"]
-
-[sub_resource type="GDScript" id="GDScript_u5sy4"]
-script/source = "extends HBoxContainer
-
-
-func _on_board_puzzle_completed(_start_ticks: int, _end_ticks: int) -> void:
-	visible = false
-
-
-func _on_board_puzzle_changed() -> void:
-	visible = true
-"
 
 [sub_resource type="InputEventAction" id="InputEventAction_264po"]
 action = &"undo"
 
 [sub_resource type="Shortcut" id="Shortcut_1kice"]
 events = [SubResource("InputEventAction_264po")]
-
-[sub_resource type="GDScript" id="GDScript_gee14"]
-script/source = "extends PanelContainer
-
-
-@export var time_label: Label
-
-@onready var time_label_fmt := time_label.text
-
-
-func _ready():
-	visible = false
-
-
-func _on_board_puzzle_completed(start_ticks: int, end_ticks: int) -> void:
-	visible = true
-	
-	var time_ms := end_ticks - start_ticks
-	var formatted_time := Util.format_ms(time_ms)
-	time_label.text = time_label_fmt % formatted_time
-
-
-func _on_board_puzzle_changed() -> void:
-	visible = false
-"
 
 [node name="Game" type="Node2D" unique_id=1986065374]
 
@@ -185,7 +150,7 @@ size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 24
 alignment = 1
-script = SubResource("GDScript_u5sy4")
+script = ExtResource("14_sgl2t")
 
 [node name="Undo" type="Button" parent="UICanvasLayer/UI/BoardUI/MarginContainer/BottomRow" unique_id=1460636056]
 layout_mode = 2
@@ -237,7 +202,7 @@ mouse_filter = 2
 [node name="VictoryDialog" type="PanelContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer" unique_id=1360370872 node_paths=PackedStringArray("time_label")]
 visible = false
 layout_mode = 2
-script = SubResource("GDScript_gee14")
+script = ExtResource("22_qouja")
 time_label = NodePath("MarginContainer/VBoxContainer/Content")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvasLayer/UI/BoardUI/MarginContainer/DialogContainer/VictoryDialog" unique_id=1030433429]

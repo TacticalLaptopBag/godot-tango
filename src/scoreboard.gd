@@ -7,12 +7,10 @@ extends VBoxContainer
 var latest_score: Score = null
 
 
-func _on_board_puzzle_completed(start_ticks: int, end_ticks: int) -> void:
+func _on_board_puzzle_completed(timer: float) -> void:
 	# Create Score
-	var score_time_ms := end_ticks - start_ticks
 	var score_timestamp := roundi(Time.get_unix_time_from_system())
-	latest_score = Score.new(score_time_ms, score_timestamp)
-
+	latest_score = Score.new(floor(timer * 1000), score_timestamp)
 	# Store score into persistence
 	DataPersistence.store_score(latest_score, DataPersistence.grid_size)
 	DataPersistence.save()

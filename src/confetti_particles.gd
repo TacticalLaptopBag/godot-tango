@@ -10,7 +10,7 @@ func _ready() -> void:
 			emitters.append(child)
 
 
-func _on_puzzle_completed(_start_ticks: int, _end_ticks: int):
+func _on_puzzle_completed(_timer: float):
 	emit()
 
 

@@ -7,8 +7,8 @@ extends Button
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
-	PuzzleProvider.puzzle_generated.connect(_on_puzzle_generated)
-	_on_puzzle_generated(PuzzleProvider.get_available_sizes())
+	PuzzleProvider.puzzle_generated.connect(_update_disabled)
+	_update_disabled(PuzzleProvider.get_available_sizes())
 
 
 func _unhandled_input(_event: InputEvent):
@@ -25,7 +25,8 @@ func _on_pressed() -> void:
 	board.puzzle = puzzle
 	for node in hide_on_pressed:
 		node.visible = false
+	_update_disabled(PuzzleProvider.get_available_sizes())
 
 
-func _on_puzzle_generated(available_sizes: Array[int]):
+func _update_disabled(available_sizes: Array[int]):
 	disabled = DataPersistence.grid_size not in available_sizes

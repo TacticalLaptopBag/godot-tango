@@ -4,6 +4,7 @@ extends Resource
 
 @export var cells: Array[Cell] = []
 var _size: int = -1
+var timer := -1.0
 
 
 enum LineType {
