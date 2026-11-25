@@ -19,8 +19,8 @@ func _unhandled_input(_event: InputEvent):
 func _on_pressed() -> void:
 	var board: Board = get_tree().get_first_node_in_group("board")
 	var board_size: int = board.grid_size
-	# if not resume_in_progress:
-	# 	DataPersistence.delete_in_progress_puzzle(board_size)
+	if not resume_in_progress:
+		DataPersistence.delete_in_progress_puzzle(board_size)
 	var puzzle: Puzzle = PuzzleProvider.get_puzzle(board_size)
 	board.puzzle = puzzle
 	for node in hide_on_pressed:

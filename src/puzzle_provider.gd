@@ -20,8 +20,17 @@ func get_puzzle(size: int) -> Puzzle:
 		push_error("Attempt to get puzzle of invalid size: %d" % size)
 		return null
 
+	# Return in-progress puzzle if it exists
+	var in_progress := DataPersistence.load_in_progress_puzzle(size)
+	if in_progress != null:
+		return in_progress
+
 	var generator := _generators_dict[size]
-	return generator.get_puzzle()
+	var puzzle := generator.get_puzzle()
+	if puzzle != null:
+		# Establish ownership by saving as in-progress
+		DataPersistence.save_in_progress_puzzle(puzzle)
+	return puzzle
 
 
 func get_available_sizes() -> Array[int]:

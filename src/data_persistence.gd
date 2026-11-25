@@ -21,6 +21,7 @@ var current_theme: String:
 
 
 const PUZZLE_FMT := "puzzles_%d"
+const IN_PROGRESS_FMT := "in_progress_%d"
 const SCORE_FMT := "score_%d"
 
 var latest_score: Score = null
@@ -157,6 +158,28 @@ func fetch_puzzles(puzzle_grid_size: int) -> Array[Puzzle]:
 		puzzles.append(deserialize_puzzle(puzzle_data))
 
 	return puzzles
+
+
+func save_in_progress_puzzle(puzzle: Puzzle):
+	var key := IN_PROGRESS_FMT % puzzle.grid_size()
+	var data := serialize_puzzle(puzzle)
+	_persistence.data[key] = data
+	save()
+
+
+func load_in_progress_puzzle(size: int) -> Puzzle:
+	var key := IN_PROGRESS_FMT % size
+	if not _persistence.data.has(key):
+		return null
+	var data: String = _persistence.data[key]
+	return deserialize_puzzle(data)
+
+
+func delete_in_progress_puzzle(size: int):
+	var key := IN_PROGRESS_FMT % size
+	if _persistence.data.has(key):
+		_persistence.data.erase(key)
+		save()
 
 
 func serialize_score(score: Score) -> String:
