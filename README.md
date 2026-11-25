@@ -1,4 +1,9 @@
-# Tango.gd
+<h1 align="center">
+  
+  ![Tango.gd Icon](icon.svg)
+
+  Tango.gd
+</h1>
 
 The classic LinkedIn puzzle, [Tango][tango], reimplemented in Godot.
 Select from 4x4, 6x6, or 8x8 grids.
